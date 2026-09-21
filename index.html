@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Vireo</title>
+<link rel="preconnect" href="https://api.fontshare.com">
+<link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600,700&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/@phosphor-icons/web@2.1.1"></script>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  if (window.tailwind) {
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ['"General Sans"', 'system-ui', 'sans-serif'] },
+          colors: {
+            base: '#050506',
+            surface: '#0d0e11',
+            surface2: '#141519',
+            edge: 'rgba(255,255,255,0.07)',
+            ink: '#f4f4f5',
+            mute: '#9a9ba4',
+            faint: '#5c5d66',
+            accent: '#3AA0FF',
+            accent2: '#1F6FE0',
+            up: '#39D98A',
+            down: '#FF5C5C'
+          }
+        }
+      }
+    }
+  } else {
+    console.warn('Vireo: Tailwind Play CDN failed to load (network/CSP blocked it). Layout will be unstyled until it loads.');
+  }
+</script>
+<style>
+  * { -webkit-tap-highlight-color: transparent; }
+  html, body { background: #050506; }
+  body {
+    font-family: 'General Sans', system-ui, sans-serif;
+    font-variant-numeric: tabular-nums;
+    overscroll-behavior: none;
+  }
+  .grain {
+    position: fixed; inset: 0; pointer-events: none; z-index: 0;
+    opacity: 0.05; mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  .sheen { position: relative; background: linear-gradient(180deg, #131418 0%, #0d0e11 55%, #0a0b0d 100%); border: 1px solid rgba(255,255,255,0.06); }
+  .sheen::before { content:''; position:absolute; inset:0; border-radius:inherit; pointer-events:none; background: linear-gradient(180deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0) 30%); }
+  .glow-accent { box-shadow: 0 8px 24px -8px rgba(58,160,255,0.4); }
+  .navblur { backdrop-filter: blur(20px) saturate(140%); background: rgba(9,10,12,0.82); }
+  @keyframes rise { from { opacity:0; transform: translateY(10px);} to { opacity:1; transform: translateY(0);} }
+  .rise { animation: rise .5s cubic-bezier(.22,1,.36,1) both; }
+  @media (prefers-reduced-motion: reduce) { .rise { animation: none !important; } * { transition: none !important; } }
+  ::-webkit-scrollbar { display: none; }
+  .toast { transition: transform .35s cubic-bezier(.22,1,.36,1), opacity .35s ease; }
+  .btn-press:active { transform: scale(0.96); }
+  .btn-press { transition: transform .15s ease; }
+  .knob { transition: transform .2s ease, background .2s ease; }
+</style>
+</head>
+<body class="bg-base text-ink min-h-[100dvh] relative">
+<div class="grain"></div>
+
+<div class="max-w-[440px] mx-auto min-h-[100dvh] relative z-10 pb-28">
+
+  <!-- Header bar -->
+  <header class="bg-gradient-to-r from-accent2 to-accent px-4 py-4 flex items-center justify-between rise">
+    <div class="flex items-center gap-3">
+      <i class="ph-bold ph-list text-[20px] text-white/95"></i>
+      <div class="w-8 h-8 rounded-full bg-white/15 flex items-center justify-center">
+        <i class="ph-fill ph-bird text-white text-[15px]"></i>
+      </div>
+      <span class="text-[17px] font-semibold text-white">Vireo</span>
+    </div>
+    <div class="flex items-center gap-4">
+      <button class="btn-press"><i class="ph ph-gear-six text-[19px] text-white/90"></i></button>
+      <button class="btn-press relative"><i class="ph ph-bell text-[19px] text-white/90"></i>
+        <span class="absolute -top-0.5 -right-0.5 w-1.5 h-1.5 rounded-full bg-up"></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Balance / today stat card -->
+  <section class="mx-4 mt-4 rounded-2xl sheen px-4 py-3.5 flex items-center justify-between rise" style="animation-delay:.05s">
+    <div>
+      <p class="text-[12px] text-mute flex items-center gap-1.5">Total balance <i class="ph ph-eye text-[12px]"></i></p>
+      <p class="text-[21px] font-semibold mt-1 tracking-tight" id="balance">128.4763 <span class="text-[13px] text-mute font-normal">TON</span></p>
+    </div>
+    <div class="text-right">
+      <p class="text-[12px] text-mute">Today</p>
+      <p class="text-[15px] font-semibold text-up mt-1">+2.1847</p>
+    </div>
+  </section>
+
+  <!-- Watch ad CTA -->
+  <section class="mx-4 mt-3 rise" style="animation-delay:.1s">
+    <button id="watchBtn" onclick="watchAd()" class="btn-press w-full rounded-2xl bg-gradient-to-r from-accent to-accent2 glow-accent px-5 py-4 flex items-center justify-between">
+      <span class="flex items-center gap-3">
+        <span class="w-9 h-9 rounded-full bg-white/15 flex items-center justify-center">
+          <i class="ph-fill ph-play text-[15px] text-white"></i>
+        </span>
+        <span class="text-left">
+          <span id="watchLabel" class="block text-[15px] font-semibold text-white">Watch ad</span>
+          <span class="block text-[12px] text-white/70">Reward up to 0.0028 TON</span>
+        </span>
+      </span>
+      <i class="ph-bold ph-caret-right text-[16px] text-white/70"></i>
+    </button>
+    <div class="flex items-center justify-between mt-3 mb-1.5 text-[12px] text-mute">
+      <span>Today's ads</span>
+      <span id="adCount" class="text-ink font-medium">16 / 20</span>
+    </div>
+    <div class="h-1.5 rounded-full bg-surface2 overflow-hidden">
+      <div id="adProgress" class="h-full rounded-full bg-accent" style="width:80%; transition: width .5s cubic-bezier(.22,1,.36,1);"></div>
+    </div>
+  </section>
+
+  <!-- Circular actions -->
+  <section class="mx-4 mt-5 grid grid-cols-4 gap-2 rise" style="animation-delay:.15s">
+    <button class="btn-press flex flex-col items-center gap-2" onclick="handleWithdraw()">
+      <span class="w-14 h-14 rounded-full bg-gradient-to-br from-accent to-accent2 flex items-center justify-center shadow-lg shadow-accent/20"><i class="ph-fill ph-paper-plane-tilt text-white text-[19px]"></i></span>
+      <span class="text-[11px] text-mute">Withdraw</span>
+    </button>
+    <button class="btn-press flex flex-col items-center gap-2" onclick="connectWallet()">
+      <span id="walletIcon" class="w-14 h-14 rounded-full bg-gradient-to-br from-accent to-accent2 flex items-center justify-center shadow-lg shadow-accent/20"><i class="ph-fill ph-download-simple text-white text-[19px]"></i></span>
+      <span id="walletLabel" class="text-[11px] text-mute">Wallet</span>
+    </button>
+    <button class="btn-press flex flex-col items-center gap-2 relative">
+      <span class="w-14 h-14 rounded-full bg-surface2 flex items-center justify-center"><i class="ph ph-arrows-left-right text-faint text-[19px]"></i></span>
+      <span class="text-[11px] text-faint">Swap</span>
+      <span class="absolute -top-1 right-0 text-[8px] bg-surface2 text-faint px-1.5 py-0.5 rounded-full border border-edge">Soon</span>
+    </button>
+    <button class="btn-press flex flex-col items-center gap-2" onclick="document.getElementById('historySection').scrollIntoView({behavior:'smooth'})">
+      <span class="w-14 h-14 rounded-full bg-gradient-to-br from-accent to-accent2 flex items-center justify-center shadow-lg shadow-accent/20"><i class="ph-fill ph-dots-three text-white text-[19px]"></i></span>
+      <span class="text-[11px] text-mute">More</span>
+    </button>
+  </section>
+
+  <!-- Quick tabs + auto-claim -->
+  <section class="mx-4 mt-6 flex items-center justify-between rise" style="animation-delay:.2s">
+    <div class="flex bg-surface2 rounded-xl p-1 gap-1">
+      <button onclick="window.scrollTo({top:0,behavior:'smooth'})" class="text-[12px] px-3 py-1.5 rounded-lg bg-accent text-white font-medium">Overview</button>
+      <button onclick="document.getElementById('historySection').scrollIntoView({behavior:'smooth'})" class="text-[12px] px-3 py-1.5 rounded-lg text-mute">History</button>
+      <button onclick="document.getElementById('rewardsSection').scrollIntoView({behavior:'smooth'})" class="text-[12px] px-3 py-1.5 rounded-lg text-mute">Rewards</button>
+    </div>
+    <button id="autoClaim" onclick="toggleAuto()" class="flex items-center gap-2 text-[11px] text-mute">
+      Auto-claim
+      <span class="relative w-9 h-5 rounded-full bg-surface2">
+        <span id="autoKnob" class="knob absolute top-0.5 left-0.5 w-4 h-4 rounded-full bg-mute"></span>
+      </span>
+    </button>
+  </section>
+
+  <!-- Chart category tabs -->
+  <div id="catTabs" class="flex items-center gap-2 mx-4 mt-4 rise" style="animation-delay:.22s">
+    <button data-c="earnings" class="cat-pill text-[13px] font-medium px-3 py-1.5 rounded-lg bg-ink text-base">Earnings</button>
+    <button data-c="ads" class="cat-pill text-[13px] px-3 py-1.5 rounded-lg text-mute">Ads watched</button>
+    <button data-c="referrals" class="cat-pill text-[13px] px-3 py-1.5 rounded-lg text-mute">Referrals</button>
+  </div>
+
+  <!-- Chart -->
+  <section class="mx-4 mt-3 rise" style="animation-delay:.25s">
+    <p class="text-[22px] font-semibold tracking-tight" id="chartTotal">89.3 TON</p>
+    <div class="mt-2 h-[130px]">
+      <canvas id="earnChart"></canvas>
+    </div>
+  </section>
+
+  <!-- Timeframe row -->
+  <div id="rangePills" class="flex items-center justify-between mx-4 mt-1 rise" style="animation-delay:.28s">
+    <button data-r="D" class="range-pill text-[12px] px-2.5 py-1.5 rounded-lg text-mute">D</button>
+    <button data-r="W" class="range-pill text-[12px] px-2.5 py-1.5 rounded-lg bg-surface2 text-ink">W</button>
+    <button data-r="M" class="range-pill text-[12px] px-2.5 py-1.5 rounded-lg text-mute">M</button>
+    <button data-r="Y" class="range-pill text-[12px] px-2.5 py-1.5 rounded-lg text-mute">Y</button>
+  </div>
+
+  <!-- Ticker card -->
+  <section class="mx-4 mt-4 rounded-2xl bg-accent/10 border border-accent/20 px-4 py-3 flex items-center justify-between rise" style="animation-delay:.3s">
+    <div class="flex items-center gap-3">
+      <div class="flex -space-x-2">
+        <span class="w-7 h-7 rounded-full bg-accent flex items-center justify-center text-[10px] font-bold text-white border-2 border-base">T</span>
+        <span class="w-7 h-7 rounded-full bg-surface2 flex items-center justify-center text-[10px] font-bold text-ink border-2 border-base">$</span>
+      </div>
+      <div>
+        <p class="text-[13px] text-ink font-medium">TON / USDT</p>
+        <p class="text-[11px] text-mute">Toncoin</p>
+      </div>
+    </div>
+    <div class="text-right">
+      <p class="text-[13px] text-ink font-medium">4.762</p>
+      <p class="text-[11px] text-up">+0.083  +1.77%</p>
+    </div>
+  </section>
+
+  <!-- Ad watch history table -->
+  <section id="historySection" class="mx-4 mt-6 rise" style="animation-delay:.32s">
+    <div class="flex items-center justify-between px-1 mb-3">
+      <h2 class="text-[15px] font-semibold">Ad history</h2>
+      <button class="text-[12px] text-mute flex items-center gap-0.5">This week <i class="ph ph-caret-down text-[10px]"></i></button>
+    </div>
+    <div class="rounded-3xl sheen overflow-hidden">
+      <div class="grid grid-cols-[1.2fr_.8fr_.9fr_1fr] px-4 py-2.5 text-[11px] text-faint border-b border-edge">
+        <span>Date</span><span class="text-center">Ads</span><span class="text-center">Time</span><span class="text-right">Earned</span>
+      </div>
+      <div class="divide-y divide-edge">
+        <div class="grid grid-cols-[1.2fr_.8fr_.9fr_1fr] px-4 py-3 items-center text-[13px]">
+          <span class="text-ink">Today</span><span class="text-center text-mute">16</span><span class="text-center text-mute">42m</span><span class="text-right text-up">+2.1847</span>
+        </div>
+        <div class="grid grid-cols-[1.2fr_.8fr_.9fr_1fr] px-4 py-3 items-center text-[13px]">
+          <span class="text-ink">Yesterday</span><span class="text-center text-mute">20</span><span class="text-center text-mute">51m</span><span class="text-right text-up">+2.6912</span>
+        </div>
+        <div class="grid grid-cols-[1.2fr_.8fr_.9fr_1fr] px-4 py-3 items-center text-[13px]">
+          <span class="text-ink">Tue 15</span><span class="text-center text-mute">12</span><span class="text-center text-mute">33m</span><span class="text-right text-up">+1.5203</span>
+        </div>
+        <div class="grid grid-cols-[1.2fr_.8fr_.9fr_1fr] px-4 py-3 items-center text-[13px]">
+          <span class="text-ink">Mon 14</span><span class="text-center text-mute">18</span><span class="text-center text-mute">46m</span><span class="text-right text-up">+2.3765</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Rewards -->
+  <section id="rewardsSection" class="mx-4 mt-6 rounded-3xl sheen p-5 rise" style="animation-delay:.35s">
+    <h2 class="text-[15px] font-semibold mb-3.5">Rewards</h2>
+    <div class="space-y-3">
+      <div class="flex items-center gap-3">
+        <span class="w-6 h-6 rounded-full bg-accent flex items-center justify-center shrink-0"><i class="ph-bold ph-check text-[12px] text-white"></i></span>
+        <div class="flex-1"><p class="text-[13px] text-ink">Connect your TON wallet</p><p class="text-[11px] text-faint">Reward credited</p></div>
+        <span class="text-[12px] text-up">+0.5</span>
+      </div>
+      <div class="flex items-center gap-3">
+        <span class="w-6 h-6 rounded-full border-2 border-edge flex items-center justify-center shrink-0"><i class="ph ph-fire text-[11px] text-mute"></i></span>
+        <div class="flex-1"><p class="text-[13px] text-ink">Watch 20 ads today</p><p class="text-[11px] text-faint">16 of 20 done</p></div>
+        <span class="text-[12px] text-mute">+1.0</span>
+      </div>
+      <div class="flex items-center gap-3">
+        <span class="w-6 h-6 rounded-full border-2 border-edge flex items-center justify-center shrink-0"><i class="ph ph-users-three text-[11px] text-mute"></i></span>
+        <div class="flex-1"><p class="text-[13px] text-ink">Invite a friend</p><p class="text-[11px] text-faint">Per active referral</p></div>
+        <span class="text-[12px] text-mute">+0.3</span>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<!-- Bottom nav -->
+<nav class="fixed bottom-0 left-0 right-0 z-20 navblur border-t border-edge">
+  <div class="max-w-[440px] mx-auto grid grid-cols-5 items-end px-2 pt-2 pb-[calc(10px+env(safe-area-inset-bottom))]">
+    <button class="flex flex-col items-center gap-1 py-1"><i class="ph-fill ph-house text-[19px] text-accent"></i><span class="text-[10px] text-accent">Home</span></button>
+    <button class="flex flex-col items-center gap-1 py-1"><i class="ph ph-chart-line-up text-[19px] text-faint"></i><span class="text-[10px] text-faint">Stats</span></button>
+    <button onclick="watchAd()" class="btn-press flex flex-col items-center -mt-6">
+      <span class="w-12 h-12 rounded-full bg-gradient-to-br from-accent to-accent2 glow-accent flex items-center justify-center"><i class="ph-fill ph-play text-[18px] text-white"></i></span>
+    </button>
+    <button class="flex flex-col items-center gap-1 py-1"><i class="ph ph-wallet text-[19px] text-faint"></i><span class="text-[10px] text-faint">Wallet</span></button>
+    <button onclick="document.getElementById('historySection').scrollIntoView({behavior:'smooth'})" class="flex flex-col items-center gap-1 py-1"><i class="ph ph-clock-counter-clockwise text-[19px] text-faint"></i><span class="text-[10px] text-faint">History</span></button>
+  </div>
+</nav>
+
+<!-- Toast -->
+<div id="toast" class="fixed left-5 right-5 z-30 opacity-0 translate-y-4 pointer-events-none" style="bottom: calc(96px + env(safe-area-inset-bottom));">
+  <div class="max-w-[400px] mx-auto sheen rounded-2xl px-4 py-3 flex items-center gap-3">
+    <span class="w-8 h-8 rounded-full bg-up/15 flex items-center justify-center"><i id="toastIcon" class="ph-bold ph-check text-[14px] text-up"></i></span>
+    <div><p id="toastTitle" class="text-[13px] text-ink font-medium">Ad complete</p><p id="toastSub" class="text-[11px] text-faint">+0.0021 TON added to balance</p></div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<script src="https://unpkg.com/@tonconnect/ui@2/dist/tonconnect-ui.min.js"></script>
+<script>
+  // Telegram Mini App integration
+  try {
+    if (window.Telegram && window.Telegram.WebApp) {
+      const tg = window.Telegram.WebApp;
+      tg.ready();
+      tg.expand();
+      tg.setHeaderColor('#1F6FE0');
+      tg.setBackgroundColor('#050506');
+    }
+  } catch (e) { console.warn('Vireo: Telegram WebApp init failed.', e); }
+
+  function haptic(style) {
+    try {
+      if (window.Telegram && window.Telegram.WebApp && window.Telegram.WebApp.HapticFeedback) {
+        window.Telegram.WebApp.HapticFeedback.impactOccurred(style || 'light');
+      }
+    } catch (e) {}
+  }
+
+  function showToast(title, sub, icon) {
+    const toast = document.getElementById('toast');
+    document.getElementById('toastTitle').textContent = title;
+    document.getElementById('toastSub').textContent = sub;
+    document.getElementById('toastIcon').className = 'ph-bold ' + (icon || 'ph-check') + ' text-[14px] text-up';
+    toast.classList.remove('opacity-0', 'translate-y-4');
+    toast.classList.add('opacity-100', 'translate-y-0');
+    clearTimeout(window._toastTimer);
+    window._toastTimer = setTimeout(() => {
+      toast.classList.add('opacity-0', 'translate-y-4');
+      toast.classList.remove('opacity-100', 'translate-y-0');
+    }, 2400);
+  }
+
+  // TON Connect
+  let tonConnectUI = null;
+  try {
+    if (window.TON_CONNECT_UI) {
+      tonConnectUI = new TON_CONNECT_UI.TonConnectUI({
+        manifestUrl: window.location.origin + '/tonconnect-manifest.json'
+      });
+      tonConnectUI.onStatusChange((wallet) => {
+        const icon = document.getElementById('walletIcon');
+        const label = document.getElementById('walletLabel');
+        if (wallet) {
+          const addr = wallet.account.address;
+          label.textContent = addr.slice(0, 4) + '...' + addr.slice(-4);
+          icon.classList.add('ring-2', 'ring-up');
+          showToast('Wallet connected', label.textContent);
+        } else {
+          label.textContent = 'Wallet';
+          icon.classList.remove('ring-2', 'ring-up');
+        }
+      });
+    }
+  } catch (e) { console.warn('Vireo: TON Connect failed to init.', e); }
+
+  function connectWallet() {
+    haptic('light');
+    if (!tonConnectUI) { showToast('Wallet unavailable', 'TON Connect did not load', 'ph-warning'); return; }
+    if (tonConnectUI.connected) { tonConnectUI.disconnect(); } else { tonConnectUI.openModal(); }
+  }
+
+  function handleWithdraw() {
+    haptic('light');
+    if (!tonConnectUI || !tonConnectUI.connected) { showToast('Connect a wallet first', 'Tap Wallet to link TON Connect', 'ph-wallet'); return; }
+    showToast('Withdrawals coming soon', 'Payouts go live once the backend treasury service is connected', 'ph-clock');
+  }
+
+  const categories = {
+    earnings: {
+      unit: ' TON',
+      D: { labels:['12a','3a','6a','9a','12p','3p','6p','9p'], data:[1.1,0.6,0.4,2.3,3.8,4.6,5.9,6.4] },
+      W: { labels:['Mon','Tue','Wed','Thu','Fri','Sat','Sun'], data:[8.2,11.4,9.8,14.6,12.1,17.3,15.9] },
+      M: { labels:['Wk1','Wk2','Wk3','Wk4'], data:[52.4,61.8,58.2,73.1] },
+      Y: { labels:['Jan','Mar','May','Jul','Sep','Nov'], data:[180,204,246,268,312,347] },
+      totals: { D:'25.1 TON', W:'89.3 TON', M:'245.5 TON', Y:'1,557 TON' }
+    },
+    ads: {
+      unit: ' ads',
+      D: { labels:['12a','3a','6a','9a','12p','3p','6p','9p'], data:[3,1,1,6,9,11,14,15] },
+      W: { labels:['Mon','Tue','Wed','Thu','Fri','Sat','Sun'], data:[16,20,12,18,15,19,17] },
+      M: { labels:['Wk1','Wk2','Wk3','Wk4'], data:[92,108,101,124] },
+      Y: { labels:['Jan','Mar','May','Jul','Sep','Nov'], data:[310,342,388,401,455,489] },
+      totals: { D:'60 ads', W:'117 ads', M:'425 ads', Y:'2,385 ads' }
+    },
+    referrals: {
+      unit: '',
+      D: { labels:['12a','3a','6a','9a','12p','3p','6p','9p'], data:[0,0,0,1,1,2,2,3] },
+      W: { labels:['Mon','Tue','Wed','Thu','Fri','Sat','Sun'], data:[1,2,0,1,3,2,1] },
+      M: { labels:['Wk1','Wk2','Wk3','Wk4'], data:[6,9,7,11] },
+      Y: { labels:['Jan','Mar','May','Jul','Sep','Nov'], data:[24,31,28,35,40,44] },
+      totals: { D:'9 invites', W:'10 invites', M:'33 invites', Y:'202 invites' }
+    }
+  };
+  let activeCat = 'earnings';
+  let activeRange = 'W';
+
+  let chart = null;
+  try {
+    const ctx = document.getElementById('earnChart');
+    const gradient = ctx.getContext('2d').createLinearGradient(0,0,0,130);
+    gradient.addColorStop(0,'rgba(58,160,255,0.28)');
+    gradient.addColorStop(1,'rgba(58,160,255,0)');
+
+    chart = new Chart(ctx, {
+      type: 'line',
+      data: { labels: categories.earnings.W.labels, datasets: [{
+        data: categories.earnings.W.data, borderColor:'#3AA0FF', backgroundColor: gradient,
+        borderWidth:2, tension:.4, fill:true, pointRadius:0, pointHoverRadius:4,
+        pointHoverBackgroundColor:'#3AA0FF', pointHoverBorderColor:'#fff', pointHoverBorderWidth:2
+      }]},
+      options: {
+        responsive:true, maintainAspectRatio:false,
+        plugins: { legend:{display:false}, tooltip: {
+          backgroundColor:'#16171b', borderColor:'rgba(255,255,255,0.08)', borderWidth:1,
+          titleColor:'#9a9ba4', bodyColor:'#f4f4f5', padding:10, displayColors:false,
+          callbacks: { label:(c)=> c.parsed.y + categories[activeCat].unit }
+        }},
+        scales: { x: { grid:{display:false}, ticks:{color:'#5c5d66', font:{size:10}}, border:{display:false} }, y:{display:false} },
+        interaction: { intersect:false, mode:'index' }
+      }
+    });
+  } catch (e) {
+    console.warn('Vireo: Chart.js failed to load (network/CSP blocked it). Chart will stay empty.', e);
+  }
+
+  function refreshChart() {
+    if (!chart) return;
+    const set = categories[activeCat][activeRange];
+    chart.data.labels = set.labels;
+    chart.data.datasets[0].data = set.data;
+    chart.update();
+    document.getElementById('chartTotal').textContent = categories[activeCat].totals[activeRange];
+  }
+
+  document.getElementById('catTabs').addEventListener('click', (e) => {
+    const btn = e.target.closest('.cat-pill'); if (!btn) return;
+    document.querySelectorAll('.cat-pill').forEach(b => { b.classList.remove('bg-ink','text-base'); b.classList.add('text-mute'); });
+    btn.classList.add('bg-ink','text-base'); btn.classList.remove('text-mute');
+    activeCat = btn.dataset.c;
+    refreshChart();
+  });
+
+  document.getElementById('rangePills').addEventListener('click', (e) => {
+    const btn = e.target.closest('.range-pill'); if (!btn) return;
+    document.querySelectorAll('.range-pill').forEach(b => { b.classList.remove('bg-surface2','text-ink'); b.classList.add('text-mute'); });
+    btn.classList.add('bg-surface2','text-ink'); btn.classList.remove('text-mute');
+    activeRange = btn.dataset.r;
+    refreshChart();
+  });
+
+  let autoOn = false;
+  function toggleAuto() {
+    autoOn = !autoOn;
+    const knob = document.getElementById('autoKnob');
+    knob.style.transform = autoOn ? 'translateX(16px)' : 'translateX(0)';
+    knob.style.background = autoOn ? '#3AA0FF' : '';
+    knob.classList.toggle('bg-mute', !autoOn);
+  }
+
+  let balance = 128.4763;
+  let adsToday = 16;
+  let watching = false;
+
+  function watchAd() {
+    if (watching || adsToday >= 20) return;
+    watching = true;
+    const label = document.getElementById('watchLabel');
+    const prevLabel = label.textContent;
+    label.textContent = 'Loading ad...';
+    document.getElementById('watchBtn').classList.add('opacity-70');
+
+    setTimeout(() => {
+      const reward = +(0.0018 + Math.random()*0.0012).toFixed(4);
+      balance = +(balance + reward).toFixed(4);
+      adsToday += 1;
+
+      document.getElementById('balance').innerHTML = balance.toFixed(4) + ' <span class="text-[13px] text-mute font-normal">TON</span>';
+      document.getElementById('adCount').textContent = adsToday + ' / 20';
+      document.getElementById('adProgress').style.width = (adsToday/20*100) + '%';
+
+      showToast('Ad complete', '+' + reward.toFixed(4) + ' TON added to balance');
+      haptic('medium');
+
+      label.textContent = adsToday >= 20 ? 'All ads watched' : prevLabel;
+      document.getElementById('watchBtn').classList.remove('opacity-70');
+      watching = false;
+    }, 1400);
+  }
+</script>
+</body>
+</html>
