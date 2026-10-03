@@ -122,7 +122,7 @@
       <button class="btn-press" onclick="openPanel('settingsPanel')"><i class="ph ph-gear-six text-[19px] text-white/90"></i></button>
       <button class="btn-press relative" onclick="openPanel('notifPanel'); document.getElementById('notifDot').style.display='none';">
         <i class="ph ph-bell text-[19px] text-white/90"></i>
-        <span id="notifDot" class="absolute -top-0.5 -right-0.5 w-1.5 h-1.5 rounded-full bg-up"></span>
+        <span id="notifDot" style="display:none" class="absolute -top-0.5 -right-0.5 w-1.5 h-1.5 rounded-full bg-up"></span>
       </button>
     </div>
   </header>
@@ -133,11 +133,11 @@
       <p class="text-[12px] text-mute flex items-center gap-1.5">Total balance
         <button class="btn-press" onclick="toggleBalanceVisibility()"><i id="eyeIcon" class="ph ph-eye text-[12px]"></i></button>
       </p>
-      <p class="text-[21px] font-semibold mt-1 tracking-tight" id="balance">128.4763 <span class="text-[13px] text-mute font-normal">TON</span></p>
+      <p class="text-[21px] font-semibold mt-1 tracking-tight" id="balance">0.0000 <span class="text-[13px] text-mute font-normal">TON</span></p>
     </div>
     <div class="text-right">
       <p class="text-[12px] text-mute">Today</p>
-      <p class="text-[15px] font-semibold text-up mt-1">+2.1847</p>
+      <p id="todayDelta" class="text-[15px] font-semibold text-up mt-1">+0.0000</p>
     </div>
   </section>
 
@@ -150,17 +150,17 @@
         </span>
         <span class="text-left">
           <span id="watchLabel" class="block text-[15px] font-semibold text-white">Watch ad</span>
-          <span class="block text-[12px] text-white/70">Reward up to 0.0028 TON</span>
+          <span id="rewardHint" class="block text-[12px] text-white/70">Watch to earn TON</span>
         </span>
       </span>
       <i class="ph-bold ph-caret-right text-[16px] text-white/70"></i>
     </button>
     <div class="flex items-center justify-between mt-3 mb-1.5 text-[12px] text-mute">
       <span>Today's ads</span>
-      <span id="adCount" class="text-ink font-medium">16 / 20</span>
+      <span id="adCount" class="text-ink font-medium">0 / 20</span>
     </div>
     <div class="h-1.5 rounded-full bg-surface2 overflow-hidden">
-      <div id="adProgress" class="h-full rounded-full bg-accent" style="width:80%; transition: width .5s cubic-bezier(.22,1,.36,1);"></div>
+      <div id="adProgress" class="h-full rounded-full bg-accent" style="width:0%; transition: width .5s cubic-bezier(.22,1,.36,1);"></div>
     </div>
   </section>
 
@@ -303,20 +303,7 @@
   <div class="panel-sheet absolute inset-x-0 bottom-0 max-w-[440px] mx-auto rounded-t-3xl sheen p-5 pb-8 max-h-[75vh] overflow-y-auto">
     <div class="w-9 h-1 rounded-full bg-edge mx-auto mb-4"></div>
     <h2 class="text-[15px] font-semibold mb-4">Notifications</h2>
-    <div class="space-y-3">
-      <div class="flex items-start gap-3">
-        <span class="w-8 h-8 rounded-full bg-up/15 flex items-center justify-center shrink-0"><i class="ph-bold ph-check text-[13px] text-up"></i></span>
-        <div><p class="text-[13px] text-ink">Wallet reward credited</p><p class="text-[11px] text-faint">+0.5 TON for connecting your wallet, 2h ago</p></div>
-      </div>
-      <div class="flex items-start gap-3">
-        <span class="w-8 h-8 rounded-full bg-accent/15 flex items-center justify-center shrink-0"><i class="ph-fill ph-play text-[12px] text-accent"></i></span>
-        <div><p class="text-[13px] text-ink">Daily streak reminder</p><p class="text-[11px] text-faint">4 more ads to hit today's bonus, 5h ago</p></div>
-      </div>
-      <div class="flex items-start gap-3">
-        <span class="w-8 h-8 rounded-full bg-surface2 flex items-center justify-center shrink-0"><i class="ph ph-users-three text-[12px] text-mute"></i></span>
-        <div><p class="text-[13px] text-ink">Referral program live</p><p class="text-[11px] text-faint">Invite friends to earn +0.3 TON each, 1d ago</p></div>
-      </div>
-    </div>
+    <p class="text-[13px] text-faint py-4">No notifications yet.</p>
   </div>
 </div>
 
@@ -333,20 +320,7 @@
       <div class="grid grid-cols-[1.2fr_.8fr_.9fr_1fr] px-4 py-2.5 text-[11px] text-faint border-b border-edge">
         <span>Date</span><span class="text-center">Ads</span><span class="text-center">Time</span><span class="text-right">Earned</span>
       </div>
-      <div class="divide-y divide-edge">
-        <div class="grid grid-cols-[1.2fr_.8fr_.9fr_1fr] px-4 py-3 items-center text-[13px]">
-          <span class="text-ink">Today</span><span class="text-center text-mute">16</span><span class="text-center text-mute">42m</span><span class="text-right text-up">+2.1847</span>
-        </div>
-        <div class="grid grid-cols-[1.2fr_.8fr_.9fr_1fr] px-4 py-3 items-center text-[13px]">
-          <span class="text-ink">Yesterday</span><span class="text-center text-mute">20</span><span class="text-center text-mute">51m</span><span class="text-right text-up">+2.6912</span>
-        </div>
-        <div class="grid grid-cols-[1.2fr_.8fr_.9fr_1fr] px-4 py-3 items-center text-[13px]">
-          <span class="text-ink">Tue 15</span><span class="text-center text-mute">12</span><span class="text-center text-mute">33m</span><span class="text-right text-up">+1.5203</span>
-        </div>
-        <div class="grid grid-cols-[1.2fr_.8fr_.9fr_1fr] px-4 py-3 items-center text-[13px]">
-          <span class="text-ink">Mon 14</span><span class="text-center text-mute">18</span><span class="text-center text-mute">46m</span><span class="text-right text-up">+2.3765</span>
-        </div>
-      </div>
+      <div id="historyRows" class="divide-y divide-edge"><div class="px-4 py-6 text-center text-[12px] text-faint">No ads watched yet</div></div>
     </div>
   </div>
 </div>
@@ -359,19 +333,19 @@
     <h2 class="text-[15px] font-semibold mb-4">Rewards</h2>
     <div class="space-y-3">
       <div class="flex items-center gap-3">
-        <span class="w-6 h-6 rounded-full bg-accent flex items-center justify-center shrink-0"><i class="ph-bold ph-check text-[12px] text-white"></i></span>
-        <div class="flex-1"><p class="text-[13px] text-ink">Connect your TON wallet</p><p class="text-[11px] text-faint">Reward credited</p></div>
-        <span class="text-[12px] text-up">+0.5</span>
+        <span class="w-6 h-6 rounded-full border-2 border-edge flex items-center justify-center shrink-0"><i class="ph ph-wallet text-[11px] text-mute"></i></span>
+        <div class="flex-1"><p class="text-[13px] text-ink">Connect your TON wallet</p><p class="text-[11px] text-faint">Required to withdraw</p></div>
+        <span class="text-[11px] text-faint"></span>
       </div>
       <div class="flex items-center gap-3">
         <span class="w-6 h-6 rounded-full border-2 border-edge flex items-center justify-center shrink-0"><i class="ph ph-fire text-[11px] text-mute"></i></span>
-        <div class="flex-1"><p class="text-[13px] text-ink">Watch 20 ads today</p><p class="text-[11px] text-faint">16 of 20 done</p></div>
-        <span class="text-[12px] text-mute">+1.0</span>
+        <div class="flex-1"><p class="text-[13px] text-ink">Watch 20 ads today</p><p id="rwAds" class="text-[11px] text-faint">0 of 20 done</p></div>
+        <span class="text-[11px] text-faint">Soon</span>
       </div>
       <div class="flex items-center gap-3">
         <span class="w-6 h-6 rounded-full border-2 border-edge flex items-center justify-center shrink-0"><i class="ph ph-users-three text-[11px] text-mute"></i></span>
         <div class="flex-1"><p class="text-[13px] text-ink">Invite a friend</p><p class="text-[11px] text-faint">Per active referral</p></div>
-        <span class="text-[12px] text-mute">+0.3</span>
+        <span class="text-[11px] text-faint">Soon</span>
       </div>
     </div>
   </div>
@@ -483,7 +457,7 @@
   let AdController = null;
   try {
     if (window.Adsgram) {
-      AdController = window.Adsgram.init({ blockId: 'REPLACE_WITH_YOUR_BLOCK_ID' });
+      AdController = window.Adsgram.init({ blockId: '50800' });
     }
   } catch (e) { console.warn('Vireo: AdsGram init failed.', e); }
 
@@ -516,10 +490,17 @@
     if (tonConnectUI.connected) { tonConnectUI.disconnect(); } else { tonConnectUI.openModal(); }
   }
 
-  function handleWithdraw() {
+  async function handleWithdraw() {
     haptic('light');
+    if (!initData()) { showToast('Open in Telegram', 'Withdrawals only work inside the Telegram app', 'ph-warning'); return; }
     if (!tonConnectUI || !tonConnectUI.connected) { showToast('Connect a wallet first', 'Tap Wallet to link TON Connect', 'ph-wallet'); return; }
-    showToast('Withdrawals coming soon', 'Payouts go live once the backend treasury service is connected', 'ph-clock');
+    try {
+      const r = await api('/api/withdraw', { method: 'POST', body: { address: tonConnectUI.account.address } });
+      showToast('Withdrawal requested', fmtTon(r.amount) + ' TON queued for payout', 'ph-clock');
+      applyMe(await api('/api/me'));
+    } catch (e) {
+      showToast('Cannot withdraw', e.message || 'Try again later', 'ph-warning');
+    }
   }
 
   const categories = {
@@ -614,46 +595,121 @@
     knob.classList.toggle('bg-mute', !autoOn);
   }
 
-  let balance = 128.4763;
-  let adsToday = 16;
+  let balance = 0;
+  let adsToday = 0;
+  let adsLimit = 20;
   let watching = false;
 
-  function watchAd() {
-    if (watching || adsToday >= 20) return;
-    if (!AdController) {
-      showToast('Ads unavailable', 'Ad SDK did not load, check your connection', 'ph-warning');
-      return;
+  function initData() {
+    return (window.Telegram && window.Telegram.WebApp && window.Telegram.WebApp.initData) || '';
+  }
+
+  async function api(path, opts) {
+    const o = opts || {};
+    const res = await fetch(path, {
+      method: o.method || 'GET',
+      headers: { 'x-telegram-init-data': initData(), 'Content-Type': 'application/json' },
+      body: o.body ? JSON.stringify(o.body) : undefined
+    });
+    let data = null;
+    try { data = await res.json(); } catch (e) {}
+    if (!res.ok) {
+      const err = new Error((data && data.error) || 'Request failed');
+      err.status = res.status;
+      throw err;
     }
+    return data;
+  }
+
+  const fmtTon = (nano, d) => (nano / 1e9).toFixed(d == null ? 4 : d);
+  const weekday = (ds) => new Date(ds + 'T00:00:00Z').toLocaleDateString('en-US', { weekday: 'short', timeZone: 'UTC' });
+
+  function zeroDemoCharts() {
+    ['earnings', 'ads', 'referrals'].forEach((c) => {
+      ['D', 'W', 'M', 'Y'].forEach((r) => { categories[c][r].data = categories[c][r].data.map(() => 0); });
+    });
+    categories.earnings.totals = { D: '0 TON', W: '0 TON', M: '0 TON', Y: '0 TON' };
+    categories.ads.totals = { D: '0 ads', W: '0 ads', M: '0 ads', Y: '0 ads' };
+    categories.referrals.totals = { D: '0 invites', W: '0 invites', M: '0 invites', Y: '0 invites' };
+  }
+
+  function applyMe(me) {
+    balance = me.balance / 1e9;
+    adsToday = me.today.ads;
+    adsLimit = me.limit;
+    renderBalance();
+    document.getElementById('todayDelta').textContent = '+' + fmtTon(me.today.nano);
+    document.getElementById('adCount').textContent = adsToday + ' / ' + adsLimit;
+    document.getElementById('adProgress').style.width = Math.min(100, adsToday / adsLimit * 100) + '%';
+    document.getElementById('rewardHint').textContent = 'Earn ' + fmtTon(me.reward) + ' TON per ad';
+    document.getElementById('rwAds').textContent = adsToday + ' of ' + adsLimit + ' done';
+    if (!watching) document.getElementById('watchLabel').textContent = adsToday >= adsLimit ? 'Daily limit reached' : 'Watch ad';
+
+    const todayD = me.days[me.days.length - 1].date;
+    const yestD = me.days[me.days.length - 2].date;
+    const label = (d) => d.date === todayD ? 'Today' : d.date === yestD ? 'Yesterday' : weekday(d.date) + ' ' + d.date.slice(8);
+    const rows = me.days.slice().reverse().filter((d) => d.ads > 0);
+    document.getElementById('historyRows').innerHTML = rows.length ? rows.map((d) =>
+      '<div class="grid grid-cols-[1.2fr_.8fr_.9fr_1fr] px-4 py-3 items-center text-[13px]">' +
+      '<span class="text-ink">' + label(d) + '</span>' +
+      '<span class="text-center text-mute">' + d.ads + '</span>' +
+      '<span class="text-center text-mute">~' + Math.round(d.ads * 0.5) + 'm</span>' +
+      '<span class="text-right text-up">+' + fmtTon(d.nano) + '</span></div>'
+    ).join('') : '<div class="px-4 py-6 text-center text-[12px] text-faint">No ads watched yet</div>';
+
+    const wl = me.days.map((d) => weekday(d.date));
+    categories.earnings.W = { labels: wl, data: me.days.map((d) => +(d.nano / 1e9).toFixed(4)) };
+    categories.ads.W = { labels: wl, data: me.days.map((d) => d.ads) };
+    categories.earnings.totals.W = fmtTon(me.days.reduce((a, d) => a + d.nano, 0)) + ' TON';
+    categories.ads.totals.W = me.days.reduce((a, d) => a + d.ads, 0) + ' ads';
+    refreshChart();
+  }
+
+  async function watchAd() {
+    if (watching) return;
+    if (!initData()) { showToast('Open in Telegram', 'Rewards only work inside the Telegram app', 'ph-warning'); return; }
+    if (adsToday >= adsLimit) { showToast('Daily limit reached', 'New ads unlock after midnight UTC', 'ph-clock'); return; }
+    if (!AdController) { showToast('Ads unavailable', 'Ad SDK did not load, check your connection', 'ph-warning'); return; }
     watching = true;
     const label = document.getElementById('watchLabel');
-    const prevLabel = label.textContent;
     label.textContent = 'Loading ad...';
     document.getElementById('watchBtn').classList.add('opacity-70');
-
-    AdController.show().then((result) => {
-      if (result && result.done) {
-        const reward = +(0.0018 + Math.random()*0.0012).toFixed(4);
-        balance = +(balance + reward).toFixed(4);
-        adsToday += 1;
-
-        renderBalance();
-        document.getElementById('adCount').textContent = adsToday + ' / 20';
-        document.getElementById('adProgress').style.width = (adsToday/20*100) + '%';
-
-        showToast('Ad complete', '+' + reward.toFixed(4) + ' TON added to balance');
-        haptic('medium');
-        label.textContent = adsToday >= 20 ? 'All ads watched' : prevLabel;
-      } else {
+    const before = adsToday;
+    try {
+      const result = await AdController.show();
+      if (!(result && result.done)) {
         showToast('Ad not completed', 'No reward this time', 'ph-info');
-        label.textContent = prevLabel;
+      } else {
+        label.textContent = 'Confirming reward...';
+        let me = null;
+        for (let i = 0; i < 8; i++) {
+          await new Promise((r) => setTimeout(r, 1200));
+          me = await api('/api/me');
+          if (me.today.ads > before) break;
+        }
+        applyMe(me);
+        if (me.today.ads > before) {
+          showToast('Ad complete', '+' + fmtTon(me.reward) + ' TON added to balance');
+          haptic('medium');
+        } else {
+          showToast('Reward pending', 'Not confirmed yet, check again shortly', 'ph-clock');
+        }
       }
-    }).catch(() => {
-      showToast('No ad available', 'Try again in a moment', 'ph-warning');
-      label.textContent = prevLabel;
-    }).finally(() => {
-      document.getElementById('watchBtn').classList.remove('opacity-70');
+    } catch (e) {
+      if (e && e.status) showToast('Connection problem', 'Could not confirm your reward', 'ph-warning');
+      else showToast('No ad available', 'Try again in a moment', 'ph-warning');
+    } finally {
       watching = false;
-    });
+      document.getElementById('watchBtn').classList.remove('opacity-70');
+      label.textContent = adsToday >= adsLimit ? 'Daily limit reached' : 'Watch ad';
+    }
+  }
+
+  zeroDemoCharts();
+  if (initData()) {
+    api('/api/me').then(applyMe).catch(() => showToast('Connection problem', 'Could not load your balance', 'ph-warning'));
+  } else {
+    refreshChart();
   }
 </script>
 </body>
