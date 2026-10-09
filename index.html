@@ -102,6 +102,16 @@
   .panel { transition: opacity .25s ease; }
   .panel .panel-sheet { transition: transform .25s cubic-bezier(.22,1,.36,1); transform: scale(0.98) translateY(6px); }
   .panel.opacity-100 .panel-sheet { transform: scale(1) translateY(0); }
+:root { --coin-img: url("data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAQDAwMDAgQDAwMEBAQFBgoGBgUFBgwICQcKDgwPDg4MDQ0PERYTDxAVEQ0NExoTFRcYGRkZDxIbHRsYHRYYGRj/2wBDAQQEBAYFBgsGBgsYEA0QGBgYGBgYGBgYGBgYGBgYGBgYGBgYGBgYGBgYGBgYGBgYGBgYGBgYGBgYGBgYGBgYGBj/wAARCADgAOADASIAAhEBAxEB/8QAHQABAAICAwEBAAAAAAAAAAAAAAcIAQUCBAYJA//EAEcQAAIBAwICBgMKDAQHAAAAAAABAgMEBQYRITEHEkFhcYEIN1ETFyIyQlZ1lLKzFBUYJDNDgpGSobHRIzVywSdlc4OEk8L/xAAcAQEAAgMBAQEAAAAAAAAAAAAABgcBAwQFCAL/xAA3EQACAQICBgYHCQEAAAAAAAAAAQIDBAURBiExQWFxExUiUVOxBxIUMzSBkRYyQnKSodHw8cH/2gAMAwEAAhEDEQA/ANOAD6GPlkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADt4AylmAd7HYjKZeu7fF428vqqezhbUZVGvHZcDdro3181utG5p/+LI5al7b036s6iXNo66Vhc1VnTpya4Jnlgep97fX/AMzM19UkPe31/wDMzNfVJH46ytfFj9V/Js6qvPBl+lnlgep97fX/AMzM19UkPe36QPmZmvqsh1la+LH6r+R1VeeDL9LPLA9T72/SB8zM19VkPe36QPmZmvqkh1la+LH6r+R1VeeDL9LPLA9T72+v/mZmvqkh72+v/mZmvqkjHWVr4sfqh1VeeDL9LPLA9Q+jfXyW70ZmvqsjSZDE5XEXCoZbG3ljVfBQuqMqbfhuuJtp3tvUfqwqJvg0a6thc0l61Sm0uKZ0gZe5g6TkayAABgAAAAAAAAAAAAAAAEtdDvRKtbXbzWc91pYOhPqxhF9WV1Nc0n2QXJtc3wXJkTxhOpUhTpfHnJRiu98EX20pgbbTWjsdg7WCjTtKEafDte3F+Le7Ihpbi9SyoRpUtUpb+5byb6E4LTxC5lVrrOMN3e9x3MXh8ZhcdTx+KsKFpbU1tGlQgoxXkjvrbsNPqXUWN0tpy4zmXqulaW8d5tLrNtvZRS7W3skiIpek7ptSe2msu0uTc6a/3K3tsOu73OdGDlxLZu8WsMOapV6ig+7/AAnXyM7dxBH5T+nfmzlf46f9x+U/p75s5X+On/c6/s7iXgv+/M4/tThPjr+/InZ8FyHAgh+k/p3bjpnKv/uU/wC5Mun8tSz2mbDM0KM6NK9t4XEac2m4qST2e3icV5ht1ZxTuIOOew7rDF7O/k421RSa2myHka3P5elp/S2QzVajOtSs7edxKnB8ZKKb2W/gQ0vSf08uemsr/wCyn/cWeG3V5Fyt4OWW0xfYvZ2ElG6qKLezMnfyHkQT+U/p35s5X+On/cflP6d+bOV/jp/3O37O4l4L/vzOL7U4T46/vyJ2fia/KYfGZvHVcflbGheW1RbSpV4KUZeTIZXpO6bclvprLpPm1Om9v5kv6b1BjdU6dts5iKrq2lxHeLa2a2ezTXY000zkucOvLLKdaDjxOy0xWwxHOlQqKfD/AEq50w9Eq0PdRzeD91q4O4n1HCT60rWb5RbfOD5Jvk+D5oiYvzqrBUNS6OyWEuoKVO7oSp7vse3B+T2ZQmcZU6kqVRJTg3GXiuDLJ0Rxepe0HSra5R3963FTabYJTw+5VWgsoz3dz3nADtYJcQgAAAAAAAAAAAAGUYAB+lCs7e5pXKW7p1I1P4ZJ/wCx9BMZf2+SxNtf2s1OjcUo1acl2prdf1Pnuiz3o766WRwVTRd/VX4VYR90tXJ8Z0G+Me9xfDwa9hBtNrGdWhC5j+DbyeWssT0f4lCjcztZvL19nNZkidKGlausujXIYa3l1bmUVWoceDqQalFPubW3mUhq06lGrKlVpyp1IScJwktnGSezT70015H0PaTW3Mqj6QWhXg9XR1RYUdrHKS2rRiuFO4S3fh1kt/FSPJ0MxNUaztJvVLWuZ7mn2DuvSjfU1m46ny7yGgO7YPgyzyoGsjD5PwL3dHPql039G0PsIoi+T8C93R16pdNfRtD7tEB079zR5vyLJ9G/xFb8q8zHSR6o9SL/AJbX+7ZRN8y9nSR6pNSfRtf7tlFH2GdA/c1eaMekf4ijyfmYAXMzstyelb5HOlTqVqsKNGnKpUnJQhCK3cpPgku9vZeZd/ow0rV0b0aY/CXEutcRi61dp8FUm3KSXcm9vIgP0fdDPN6unqm+o9axxktqKkuFS4a/+U9/FotYkorgVhpninTVVaQeqOt8/wDC39AcHdGi76ptlqXI6mSv6GNxNzf3U1CjQpSqzk+xKLb/AKHz7r1nc3NW5a/SzlP97b/3LM+kTrn8XYGGi8fV/Or+KqXbi+MKO/CPc5P+SftRWLsZ62hNhOlQncy/Hs5I8P0gYlCtcwtYPP1NvN5B+0AE5K7AAAAAAAAAAAAAAABttOZ+/wBM6nss9jJbXNpUU4x5KcflQfc1uvM1Jns3NdWlGrB05rNNZM20K06NSNSDyaeaL+6bz1jqXS9lnMdUU7a6pKpF78Y+2L7090/A6estLWWsNGX2BvklC4ptQqbcaVRcYTXens/3+0gD0eNdvG52povIVvza9k6tm5PhCtt8KH7SW670/aWfb3ht3FJYnY1MMvHTW55p8Nx9B4NiNLGbBTks81lJeZ8+cnjr3D5q6xORpe5XdrVlRqw9kk/6cmu5o6j4ssL6Ruhmp0NdY+jwajb36ivKFR/Zb/0leS28FxKOIWsay27HwaKRx/CpYZeToPZtXFGHyfgXu6OvVLpr6Nofdook+T8C9vR16pdNfRtD7tEY079zR5vyJh6N/iK35V5nHpH49Empfo2v9hlFOxF6+kb1S6m+jK/2GUU+ShoJ7mrzRj0j/EUeT8wuZ3cXjL3M5u1xOOpKrdXVWNGlH2yft7tt2+5M6a5lhfRz0NJzr65v6PDaVtYKa/jqL7K/aJPjWJRw+1lWe3YuLZEcAwueJXkKEdm1vuRNmjNLWej9GWOBsknC3ppTqbcas3xlN97e7/l2Hc1JnbHTWmbzOZGooW1pSdSe3N+yK729ku9m1+QuW2xWD0h9dvJZynoqwq/mtlJVbxxfCdbb4MP2U933tewqTDLGpil4od+tvhvLtxjEaWDWDnFbFlFcSINSZ6+1Pqi9zuTm5XF3Uc5R33VOPyYLuitl5GqOWxxLtpUo0oKnBZJLJHz7XrTrVHUm823mwADYaQAAAAAAAAAAAAAAAAAD9be4rWl3SurarKlXozVSnUg+MJJ7qS8Gky73RrrKjrjQNpmI9SN3Fe43dKP6utH43k+DXc0UdS3ZJPQrrt6N1/Ttruso4rJuNvcdZ8Kc99qdTyb2b9j7iK6V4V7ZbdLBduH7rev+k00Mxrq+7VKo+xPU+D3Mt1msTaZzBXWJv6Sq2t1SlRqwfamv6lF9W6avdI60v9P3qbnbT+BU22VWm+MZ+a289y+kJOUezbbfgQv6QmhvxxpeGrLGi5XuMjtXUVxqW75+PVfwvDrEL0VxX2O56Kb7E9T4Pcye6Z4L7fZ9PTXbp6+a3oqxL4rL2dHXql019G0Pu0UTe3Ue2/LcvZ0deqXTX0bQ+7RINO/c0eb8iM+jn4mt+VeZx6RvVLqb6Mr/AGGUV5QRerpHX/CXUvfja/2GUVSTSW/LiZ0E9zV5ox6RfiaPJ+Zu9I6YvNX60sNP2Sanc1P8SptuqVNcZzfgv57F6MNirTB4K1xNhSjStrWlGlTguxJbER+j3od4fS89WX1Hq3uTSVBTXGnbrl4dZrreHVJonNwT3S5bke0qxX2y66KD7ENnF72SfQvBfYbPp6iynU18luR5PpJ1pQ0NoK7zEupK6f8Ag2lJ/rKsvi+S4t9yKQXFetd3dW7uqsq1xWm6lSpLnOTe7b7222SN0067estfztrOt18VjOtb2/VfCpPlOp5tJJ+xd5Gr5ImeimEqytulmu3Py3L/AKQHTPG+sLt0qb7ENS4vezAAJWQwAAAAAAAAAAAAAAAAAAAAAB7dXZ8gFzMPZrMp5Fveg3Xi1XoVY2+r9fKYxRo1XJ/Cq0+UKnfwWz713ko16VK5t6lCtTjUpVIuE4SW6kmtmmUZ6P8AWFzofXVpnaLk6EH7ndUo/raL+MvFbbrvReGxvra/x1C8s6sKtvWgqlOpF7qUWt0/NFPaT4U7C7coLKEta4Pei9dEMYWI2fR1HnOGp8VuZSLpH0jV0T0g32FcZfgu7rWk38qlJ/BXiuMX4d5cHo59Uum/o2h9hHhen/RD1FoR5yzoud/iVKrtFfCqUX+kj5JKS8H7T2/R4muiXTPV2/y2hy/6aNuL4or/AA6g5PtRbT+m058Cwh4bi1xGK7Ekmvm9nyOXSP6pNSfRtf7tlP8Ao50jV1t0gWOF2f4Lv7tdzXyaMWm/N8Irx7i3/SPu+iPUqe3+W19t/wDQzxPQDohae0Es7e0erkMso1fhL4VOiv0cfP4z8UMIxRWGHV/Vfak0l9DGO4R1li1vGS7EYtv5PZ8yWqFKlbW1OjSpxp0qcVCEIrZRSWySIt6dNeLSehnjbCv1cplFKjTcX8KlT+XU/c9l3vuJNv722x+Pr3t5WjSt6NN1Kk5PZRilu2/Io7r7V9zrfXl5navWjQk/c7Wk/wBXRXxV3N833s1aM4U7+7UprOEdb4vcjp0vxhYdZ9HTeU56lwW9nmd0o7L2bLY49gfBguFLJJIopvN5gAGTAAAAAAAAAAAAAAAAAAAAAAAAAbfYWT9HXXf4TYVdD5GtvVtoutYuT4yp7/Cp/sviu59xWw7+EzF9gNRWeaxtX3O6tKqq037Wvkvua3T7meRjeFrEbWVL8W1cz3dH8Xlhl5Gvn2dj5H0BqQp1qUqdSMZwktpRkt012pnXxeNtsRhbbGWUHC2tqcaVKD49WKWyX7jX6R1JY6r0hY57HyTpXNJScd+NOXKUH3ppo3vW7ikpRlTbhLbn+59B05QqxVWGvNbeB0spjLXL4e5xt7T69tc03Sqw3260Wtmj96VOFCjGEIRhCK2jFcFFdiP26xotXaksdKaQvs9fy2pW1NyUd+NSXKMF3ttLzEFKbUI683+4qShSi6s3lktvAhr0i9du2x9PQ+OrbVbmKrX7i+MaXyab/wBT4vuXeVt3e/M7+czF9n9Q3mayVX3S6u6rq1H2Jvkl3JbJeBry7MDwyOHWsaX4trfE+fNIMXlid5Ku/u7FyD5gA9g8IAAAAAAAAAAAAAAAAAAAAAAAAAAAGduBgAynkTV6P2vPxJqmppO/qdWxyUutbuT4U7jbl4SS28UvaWojLeK5HzwpVKlGrCrSqSp1ISU4zg9nFp7pp9j3LedG/TDp/U2m7ehmcra2GapwUbilcTVJVWuHXg3wafPbs32Kz0vwWUavtdCOal97Lv7y2dBtIIOl7DcSScfu593dmSnN7Re2xVf0gNerN6ppaUx9XrWONl1rhxfCpcbcv2E9vFv2Eq9JHTDp/TOm7ihhsrbX+aqwcKFG3mqqpN8OvNrgkue3byKh1alStWlVq1JVKk5Oc5ze7lJvdtvte40PwWcqvtlaOSj93Pv7xpzpBBUvYbeSbl97Lu7szjskjA7QWZwKmbzAABgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADduPVezXsa3AD1mU8h2bJJeAAMJZbA22AAZMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAH//Z"); }
+  .coin-stage { position: relative; isolation: isolate; width: 150px; height: 150px; perspective: 700px; display: flex; align-items: center; justify-content: center; touch-action: pan-y; cursor: grab; flex-shrink: 0; user-select: none; -webkit-user-select: none; }
+  .coin-stage::before { content: ''; position: absolute; inset: 2px; border-radius: 50%; border: 1.5px solid rgba(58,160,255,0.28); transform: rotateX(68deg) rotateZ(-16deg); z-index: -1; pointer-events: none; }
+  .coin-stage::after { content: ''; position: absolute; inset: 14px; border-radius: 50%; background: radial-gradient(circle, rgba(58,160,255,0.22) 0%, rgba(58,160,255,0) 70%); z-index: -1; pointer-events: none; }
+  .coin { position: relative; width: 112px; height: 112px; transform-style: preserve-3d; will-change: transform; }
+  .coin-face, .coin-edge { position: absolute; inset: 0; border-radius: 50%; }
+  .coin-face { background: var(--coin-img) center / cover no-repeat; backface-visibility: hidden; -webkit-backface-visibility: hidden; box-shadow: inset 0 0 0 3px rgba(255,255,255,0.14); }
+  .coin-front { transform: translateZ(7px); }
+  .coin-back { transform: rotateY(180deg) translateZ(7px); }
+  .coin-edge { background: #0a6fb5; }
 </style>
 </head>
 <body class="bg-base text-ink min-h-[100dvh] relative">
@@ -127,8 +137,19 @@
     </div>
   </header>
 
+  <!-- Hero -->
+  <section class="mx-4 mt-3 flex items-center justify-between gap-2 rise">
+    <h1 class="text-[30px] leading-[1.05] font-semibold tracking-tight max-w-[190px]">Turn your attention into <span class="text-accent">TON</span></h1>
+    <div id="coinStage" class="coin-stage" role="img" aria-label="Rotating TON coin. Drag to spin it.">
+      <div id="coin" class="coin">
+        <div class="coin-face coin-front"></div>
+        <div class="coin-face coin-back"></div>
+      </div>
+    </div>
+  </section>
+
   <!-- Balance / today stat card -->
-  <section class="mx-4 mt-4 rounded-2xl sheen px-4 py-3.5 flex items-center justify-between rise" style="animation-delay:.05s">
+  <section class="mx-4 mt-3 rounded-2xl sheen px-4 py-3.5 flex items-center justify-between rise" style="animation-delay:.05s">
     <div>
       <p class="text-[12px] text-mute flex items-center gap-1.5">Total balance
         <button class="btn-press" onclick="toggleBalanceVisibility()"><i id="eyeIcon" class="ph ph-eye text-[12px]"></i></button>
@@ -141,64 +162,52 @@
     </div>
   </section>
 
-  <!-- Watch ad CTA -->
-  <section class="mx-4 mt-3 rise" style="animation-delay:.1s">
-    <button id="watchBtn" onclick="watchAd()" class="btn-press w-full rounded-2xl bg-gradient-to-r from-accent to-accent2 glow-accent px-5 py-4 flex items-center justify-between">
-      <span class="flex items-center gap-3">
-        <span class="w-9 h-9 rounded-full bg-white/15 flex items-center justify-center">
-          <i class="ph-fill ph-play text-[15px] text-white"></i>
-        </span>
-        <span class="text-left">
-          <span id="watchLabel" class="block text-[15px] font-semibold text-white">Watch ad</span>
-          <span id="rewardHint" class="block text-[12px] text-white/70">Watch to earn TON</span>
-        </span>
-      </span>
-      <i class="ph-bold ph-caret-right text-[16px] text-white/70"></i>
+  <!-- Dashboard tiles -->
+  <section class="mx-4 mt-3 grid grid-cols-4 gap-2 rise" style="animation-delay:.1s">
+    <button id="watchBtn" onclick="watchAd()" class="btn-press sheen rounded-2xl px-2 py-3 flex flex-col items-center gap-1.5 text-center" style="border-color: rgba(58,160,255,0.45);">
+      <span class="w-10 h-10 rounded-xl bg-accent/15 flex items-center justify-center"><i class="ph-fill ph-play text-[18px] text-accent"></i></span>
+      <span id="watchLabel" class="text-[11px] font-medium text-ink">Watch Ads</span>
+      <span id="adCount" class="text-[11px] text-mute">0 / 20</span>
+      <span class="w-full h-1 rounded-full bg-surface2 overflow-hidden"><span id="adProgress" class="block h-full rounded-full bg-accent" style="width:0%; transition: width .5s cubic-bezier(.22,1,.36,1);"></span></span>
     </button>
-    <div class="flex items-center justify-between mt-3 mb-1.5 text-[12px] text-mute">
-      <span>Today's ads</span>
-      <span id="adCount" class="text-ink font-medium">0 / 20</span>
-    </div>
-    <div class="h-1.5 rounded-full bg-surface2 overflow-hidden">
-      <div id="adProgress" class="h-full rounded-full bg-accent" style="width:0%; transition: width .5s cubic-bezier(.22,1,.36,1);"></div>
-    </div>
-  </section>
-
-  <!-- Circular actions -->
-  <section class="mx-4 mt-5 grid grid-cols-4 gap-2 rise" style="animation-delay:.15s">
-    <button class="btn-press flex flex-col items-center gap-2" onclick="handleWithdraw()">
-      <span class="w-14 h-14 rounded-full bg-gradient-to-br from-accent to-accent2 flex items-center justify-center shadow-lg shadow-accent/20"><i class="ph-fill ph-paper-plane-tilt text-white text-[19px]"></i></span>
-      <span class="text-[11px] text-mute">Withdraw</span>
+    <button onclick="showToast('Tasks coming soon', 'Ad tasks will appear here', 'ph-clock')" class="btn-press sheen rounded-2xl px-2 py-3 flex flex-col items-center gap-1.5 text-center">
+      <span class="w-10 h-10 rounded-xl bg-accent/15 flex items-center justify-center"><i class="ph ph-list-checks text-[18px] text-accent"></i></span>
+      <span class="text-[11px] font-medium text-ink">Tasks</span>
+      <span class="text-[11px] text-faint">Soon</span>
     </button>
-    <button class="btn-press flex flex-col items-center gap-2" onclick="connectWallet()">
-      <span id="walletIcon" class="w-14 h-14 rounded-full bg-gradient-to-br from-accent to-accent2 flex items-center justify-center shadow-lg shadow-accent/20"><i class="ph-fill ph-download-simple text-white text-[19px]"></i></span>
-      <span id="walletLabel" class="text-[11px] text-mute">Wallet</span>
+    <button onclick="showToast('Referrals coming soon', 'Invite rewards are not live yet', 'ph-clock')" class="btn-press sheen rounded-2xl px-2 py-3 flex flex-col items-center gap-1.5 text-center">
+      <span class="w-10 h-10 rounded-xl bg-accent/15 flex items-center justify-center"><i class="ph ph-users-three text-[18px] text-accent"></i></span>
+      <span class="text-[11px] font-medium text-ink">Referrals</span>
+      <span class="text-[11px] text-faint">Soon</span>
     </button>
-    <button class="btn-press flex flex-col items-center gap-2 relative">
-      <span class="w-14 h-14 rounded-full bg-surface2 flex items-center justify-center"><i class="ph ph-arrows-left-right text-faint text-[19px]"></i></span>
-      <span class="text-[11px] text-faint">Swap</span>
-      <span class="absolute -top-1 right-0 text-[8px] bg-surface2 text-faint px-1.5 py-0.5 rounded-full border border-edge">Soon</span>
-    </button>
-    <button class="btn-press flex flex-col items-center gap-2" onclick="openPanel('historyPanel')">
-      <span class="w-14 h-14 rounded-full bg-gradient-to-br from-accent to-accent2 flex items-center justify-center shadow-lg shadow-accent/20"><i class="ph-fill ph-dots-three text-white text-[19px]"></i></span>
-      <span class="text-[11px] text-mute">More</span>
+    <button onclick="walletTap()" class="btn-press sheen rounded-2xl px-2 py-3 flex flex-col items-center gap-1.5 text-center">
+      <span id="walletIcon" class="w-10 h-10 rounded-xl bg-accent/15 flex items-center justify-center"><i class="ph-fill ph-wallet text-[18px] text-accent"></i></span>
+      <span class="text-[11px] font-medium text-ink">Wallet</span>
+      <span id="walletLabel" class="text-[11px] text-mute">Connect</span>
     </button>
   </section>
 
-  <!-- Quick tabs + auto-claim -->
-  <section class="mx-4 mt-6 flex items-center justify-between rise" style="animation-delay:.2s">
-    <div class="flex bg-surface2 rounded-xl p-1 gap-1">
-      <button onclick="navAction('home')" class="text-[12px] px-3 py-1.5 rounded-lg bg-accent text-white font-medium">Overview</button>
-      <button onclick="openPanel('historyPanel')" class="text-[12px] px-3 py-1.5 rounded-lg text-mute">History</button>
-      <button onclick="openPanel('rewardsPanel')" class="text-[12px] px-3 py-1.5 rounded-lg text-mute">Rewards</button>
+  <!-- Keep going -->
+  <section class="mx-4 mt-3 rounded-3xl sheen p-5 flex items-center justify-between gap-3 rise" style="animation-delay:.12s">
+    <div class="flex-1">
+      <p class="text-[17px] font-semibold tracking-tight">Keep going!</p>
+      <p id="rewardHint" class="text-[12px] text-mute mt-1.5 leading-relaxed">Watch ads to earn TON.</p>
     </div>
-    <button id="autoClaim" onclick="toggleAuto()" class="flex items-center gap-2 text-[11px] text-mute">
-      Auto-claim
-      <span class="relative w-9 h-5 rounded-full bg-surface2">
-        <span id="autoKnob" class="knob absolute top-0.5 left-0.5 w-4 h-4 rounded-full bg-mute"></span>
-      </span>
-    </button>
+    <div id="sparkWrap" class="w-[140px] h-[56px] shrink-0"></div>
   </section>
+
+  <!-- Recent earnings -->
+  <section class="mx-4 mt-6 rise" style="animation-delay:.14s">
+    <div class="flex items-center justify-between px-1 mb-3">
+      <h2 class="text-[15px] font-semibold">Recent Earnings</h2>
+      <button onclick="openPanel('historyPanel')" class="text-[12px] text-accent">See all</button>
+    </div>
+    <div class="rounded-3xl sheen overflow-hidden">
+      <div id="recentRows" class="divide-y divide-edge"><div class="px-4 py-6 text-center text-[12px] text-faint">Nothing yet. Watch an ad to earn your first TON.</div></div>
+    </div>
+  </section>
+
+  <h2 class="mx-5 mt-8 text-[15px] font-semibold">Stats</h2>
 
   <!-- Chart category tabs -->
   <div id="catTabs" class="flex items-center gap-2 mx-4 mt-4 rise" style="animation-delay:.22s">
@@ -351,6 +360,22 @@
   </div>
 </div>
 
+<!-- Wallet panel -->
+<div id="walletPanel" class="panel fixed inset-0 z-40 opacity-0 pointer-events-none">
+  <div class="absolute inset-0 bg-black/60" onclick="closePanel('walletPanel')"></div>
+  <div class="panel-sheet absolute inset-x-0 bottom-0 max-w-[440px] mx-auto rounded-t-3xl sheen p-5 pb-8 max-h-[75vh] overflow-y-auto">
+    <div class="w-9 h-1 rounded-full bg-edge mx-auto mb-4"></div>
+    <h2 class="text-[15px] font-semibold mb-4">Wallet</h2>
+    <p class="text-[12px] text-mute">Connected address</p>
+    <p id="walletAddr" class="text-[13px] text-ink break-all mt-1">Not connected</p>
+    <div class="grid grid-cols-2 gap-3 mt-5">
+      <button onclick="closePanel('walletPanel'); handleWithdraw();" class="btn-press rounded-2xl bg-gradient-to-r from-accent to-accent2 py-3 text-[14px] font-semibold text-white">Withdraw</button>
+      <button onclick="connectWallet()" class="btn-press rounded-2xl border border-edge py-3 text-[14px] text-mute">Disconnect</button>
+    </div>
+    <p class="text-[11px] text-faint mt-4">Withdrawing moves your full balance into the payout queue. Minimum 0.5 TON.</p>
+  </div>
+</div>
+
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
 <script src="https://sad.adsgram.ai/js/sad.min.js"></script>
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
@@ -390,7 +415,7 @@
   }
 
   // Fade-in panels
-  const PANEL_IDS = ['menuPanel', 'settingsPanel', 'notifPanel', 'historyPanel', 'rewardsPanel'];
+  const PANEL_IDS = ['menuPanel', 'settingsPanel', 'notifPanel', 'historyPanel', 'rewardsPanel', 'walletPanel'];
   function closePanel(id) {
     const p = document.getElementById(id);
     if (!p) return;
@@ -419,7 +444,7 @@
     });
     if (name === 'home') window.scrollTo({ top: 0, behavior: 'smooth' });
     if (name === 'stats') document.getElementById('chartSection').scrollIntoView({ behavior: 'smooth' });
-    if (name === 'wallet') connectWallet();
+    if (name === 'wallet') walletTap();
     if (name === 'history') openPanel('historyPanel');
     haptic('light');
   }
@@ -475,10 +500,13 @@
           const addr = wallet.account.address;
           label.textContent = addr.slice(0, 4) + '...' + addr.slice(-4);
           icon.classList.add('ring-2', 'ring-up');
+          document.getElementById('walletAddr').textContent = addr;
           showToast('Wallet connected', label.textContent);
         } else {
-          label.textContent = 'Wallet';
+          label.textContent = 'Connect';
           icon.classList.remove('ring-2', 'ring-up');
+          document.getElementById('walletAddr').textContent = 'Not connected';
+          closePanel('walletPanel');
         }
       });
     }
@@ -586,15 +614,6 @@
     refreshChart();
   });
 
-  let autoOn = false;
-  function toggleAuto() {
-    autoOn = !autoOn;
-    const knob = document.getElementById('autoKnob');
-    knob.style.transform = autoOn ? 'translateX(16px)' : 'translateX(0)';
-    knob.style.background = autoOn ? '#3AA0FF' : '';
-    knob.classList.toggle('bg-mute', !autoOn);
-  }
-
   let balance = 0;
   let adsToday = 0;
   let adsLimit = 20;
@@ -641,9 +660,12 @@
     document.getElementById('todayDelta').textContent = '+' + fmtTon(me.today.nano);
     document.getElementById('adCount').textContent = adsToday + ' / ' + adsLimit;
     document.getElementById('adProgress').style.width = Math.min(100, adsToday / adsLimit * 100) + '%';
-    document.getElementById('rewardHint').textContent = 'Earn ' + fmtTon(me.reward) + ' TON per ad';
+    const left = Math.max(0, adsLimit - adsToday);
+    document.getElementById('rewardHint').textContent = left
+      ? 'Watch ' + left + ' more ad' + (left === 1 ? '' : 's') + ' today. Each pays ' + fmtTon(me.reward) + ' TON.'
+      : 'Daily goal reached. New ads unlock after midnight UTC.';
     document.getElementById('rwAds').textContent = adsToday + ' of ' + adsLimit + ' done';
-    if (!watching) document.getElementById('watchLabel').textContent = adsToday >= adsLimit ? 'Daily limit reached' : 'Watch ad';
+    if (!watching) document.getElementById('watchLabel').textContent = adsToday >= adsLimit ? 'Limit reached' : 'Watch Ads';
 
     const todayD = me.days[me.days.length - 1].date;
     const yestD = me.days[me.days.length - 2].date;
@@ -662,6 +684,15 @@
     categories.ads.W = { labels: wl, data: me.days.map((d) => d.ads) };
     categories.earnings.totals.W = fmtTon(me.days.reduce((a, d) => a + d.nano, 0)) + ' TON';
     categories.ads.totals.W = me.days.reduce((a, d) => a + d.ads, 0) + ' ads';
+
+    const rec = me.recent || [];
+    document.getElementById('recentRows').innerHTML = rec.length ? rec.map((e) =>
+      '<div class="flex items-center gap-3 px-4 py-3">' +
+      '<span class="w-9 h-9 rounded-full bg-accent/15 flex items-center justify-center shrink-0"><i class="ph-fill ph-play text-[13px] text-accent"></i></span>' +
+      '<div class="flex-1"><p class="text-[13px] text-ink">Ad watched</p><p class="text-[11px] text-faint">' + timeAgo(e.ts) + '</p></div>' +
+      '<span class="text-[13px] text-up font-medium">+' + fmtTon(e.nano) + ' TON</span></div>'
+    ).join('') : '<div class="px-4 py-6 text-center text-[12px] text-faint">Nothing yet. Watch an ad to earn your first TON.</div>';
+    renderSpark(me.days.map((d) => d.nano));
     refreshChart();
   }
 
@@ -672,7 +703,7 @@
     if (!AdController) { showToast('Ads unavailable', 'Ad SDK did not load, check your connection', 'ph-warning'); return; }
     watching = true;
     const label = document.getElementById('watchLabel');
-    label.textContent = 'Loading ad...';
+    label.textContent = 'Loading...';
     document.getElementById('watchBtn').classList.add('opacity-70');
     const before = adsToday;
     try {
@@ -680,7 +711,7 @@
       if (!(result && result.done)) {
         showToast('Ad not completed', 'No reward this time', 'ph-info');
       } else {
-        label.textContent = 'Confirming reward...';
+        label.textContent = 'Confirming...';
         let me = null;
         for (let i = 0; i < 8; i++) {
           await new Promise((r) => setTimeout(r, 1200));
@@ -701,9 +732,86 @@
     } finally {
       watching = false;
       document.getElementById('watchBtn').classList.remove('opacity-70');
-      label.textContent = adsToday >= adsLimit ? 'Daily limit reached' : 'Watch ad';
+      label.textContent = adsToday >= adsLimit ? 'Limit reached' : 'Watch Ads';
     }
   }
+
+  function timeAgo(ts) {
+    const sec = Math.max(0, Math.floor(Date.now() / 1000) - ts);
+    if (sec < 60) return 'just now';
+    if (sec < 3600) return Math.floor(sec / 60) + 'm ago';
+    if (sec < 86400) return Math.floor(sec / 3600) + 'h ago';
+    return Math.floor(sec / 86400) + 'd ago';
+  }
+
+  function renderSpark(vals) {
+    const w = 140, h = 56, p = 4;
+    const max = Math.max.apply(null, vals.concat([1e-9]));
+    const step = (w - p * 2) / (vals.length - 1);
+    const pts = vals.map((v, i) => [p + i * step, h - p - (v / max) * (h - p * 2)]);
+    const line = pts.map((q) => q[0].toFixed(1) + ',' + q[1].toFixed(1)).join(' ');
+    const last = pts[pts.length - 1];
+    document.getElementById('sparkWrap').innerHTML =
+      '<svg viewBox="0 0 ' + w + ' ' + h + '" width="100%" height="100%" aria-hidden="true">' +
+      '<defs><linearGradient id="sparkG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3AA0FF" stop-opacity=".35"/><stop offset="1" stop-color="#3AA0FF" stop-opacity="0"/></linearGradient></defs>' +
+      '<polygon points="' + line + ' ' + (w - p) + ',' + h + ' ' + p + ',' + h + '" fill="url(#sparkG)"/>' +
+      '<polyline points="' + line + '" fill="none" stroke="#3AA0FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>' +
+      '<circle cx="' + last[0].toFixed(1) + '" cy="' + last[1].toFixed(1) + '" r="3" fill="#3AA0FF"/></svg>';
+  }
+
+  function walletTap() {
+    haptic('light');
+    if (tonConnectUI && tonConnectUI.connected) openPanel('walletPanel');
+    else connectWallet();
+  }
+
+  // Interactive rotating TON coin: auto-spins, drag to rotate, tap for a spin burst
+  (function initCoin() {
+    const stage = document.getElementById('coinStage');
+    const coin = document.getElementById('coin');
+    if (!stage || !coin) return;
+    for (let i = -6; i <= 6; i++) {
+      const d = document.createElement('div');
+      d.className = 'coin-edge';
+      d.style.transform = 'translateZ(' + i + 'px)';
+      coin.appendChild(d);
+    }
+    const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const base = reduce ? 0 : 0.45;
+    let rotY = 20, rotX = -10, vel = base, dragging = false, lx = 0, ly = 0, moved = 0, visible = true;
+    function paint() { coin.style.transform = 'rotateX(' + rotX + 'deg) rotateY(' + rotY + 'deg)'; }
+    function frame() {
+      if (visible && !document.hidden) {
+        if (!dragging) { rotY += vel; vel += (base - vel) * 0.04; rotX += (-10 - rotX) * 0.06; }
+        paint();
+      }
+      requestAnimationFrame(frame);
+    }
+    stage.addEventListener('pointerdown', (e) => {
+      dragging = true; moved = 0; lx = e.clientX; ly = e.clientY;
+      try { stage.setPointerCapture(e.pointerId); } catch (err) {}
+    });
+    stage.addEventListener('pointermove', (e) => {
+      if (!dragging) return;
+      const dx = e.clientX - lx, dy = e.clientY - ly;
+      lx = e.clientX; ly = e.clientY; moved += Math.abs(dx) + Math.abs(dy);
+      rotY += dx * 0.9; vel = dx * 0.9;
+      rotX = Math.max(-40, Math.min(40, rotX + dy * 0.4));
+    });
+    stage.addEventListener('pointerup', () => {
+      if (!dragging) return;
+      dragging = false;
+      if (moved < 6) { vel = 14; haptic('light'); }
+    });
+    stage.addEventListener('pointercancel', () => { dragging = false; });
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver((en) => { visible = en[0].isIntersecting; }).observe(stage);
+    }
+    paint();
+    requestAnimationFrame(frame);
+  })();
+
+  renderSpark([0, 0, 0, 0, 0, 0, 0]);
 
   zeroDemoCharts();
   if (initData()) {
