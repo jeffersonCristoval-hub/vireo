@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<script>try{if(localStorage.getItem('vireo.theme')==='light')document.documentElement.classList.add('light');}catch(e){}</script>
 <title>Vireo - Watch Ads, Earn Real TON on Telegram</title>
 <meta name="description" content="Vireo is a Telegram Mini App that pays real TON for watching ads. Build your balance and withdraw straight to your TON wallet. No fake points, no gimmicks.">
 <meta name="keywords" content="Vireo, watch ads earn TON, TON crypto rewards, Telegram Mini App, earn TON, TON Connect wallet, watch and earn crypto">
@@ -55,17 +56,17 @@
         extend: {
           fontFamily: { sans: ['"General Sans"', 'system-ui', 'sans-serif'] },
           colors: {
-            base: '#050506',
-            surface: '#0d0e11',
-            surface2: '#141519',
-            edge: 'rgba(255,255,255,0.07)',
-            ink: '#f4f4f5',
-            mute: '#9a9ba4',
-            faint: '#5c5d66',
-            accent: '#3AA0FF',
-            accent2: '#1F6FE0',
-            up: '#39D98A',
-            down: '#FF5C5C'
+            base: 'rgb(var(--base) / <alpha-value>)',
+            surface: 'rgb(var(--surface) / <alpha-value>)',
+            surface2: 'rgb(var(--surface2) / <alpha-value>)',
+            edge: 'rgb(var(--edge) / 0.08)',
+            ink: 'rgb(var(--ink) / <alpha-value>)',
+            mute: 'rgb(var(--mute) / <alpha-value>)',
+            faint: 'rgb(var(--faint) / <alpha-value>)',
+            accent: 'rgb(var(--accent) / <alpha-value>)',
+            accent2: 'rgb(var(--accent2) / <alpha-value>)',
+            up: 'rgb(var(--up) / <alpha-value>)',
+            down: 'rgb(var(--down) / <alpha-value>)'
           }
         }
       }
@@ -76,7 +77,7 @@
 </script>
 <style>
   * { -webkit-tap-highlight-color: transparent; }
-  html, body { background: #050506; }
+  html, body { background: rgb(var(--base)); }
   body {
     font-family: 'General Sans', system-ui, sans-serif;
     font-variant-numeric: tabular-nums;
@@ -87,10 +88,10 @@
     opacity: 0.05; mix-blend-mode: overlay;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   }
-  .sheen { position: relative; background: linear-gradient(180deg, #131418 0%, #0d0e11 55%, #0a0b0d 100%); border: 1px solid rgba(255,255,255,0.06); }
-  .sheen::before { content:''; position:absolute; inset:0; border-radius:inherit; pointer-events:none; background: linear-gradient(180deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0) 30%); }
+  .sheen { position: relative; background: linear-gradient(180deg, var(--sheen1) 0%, var(--sheen2) 55%, var(--sheen3) 100%); border: 1px solid var(--sheen-border); }
+  .sheen::before { content:''; position:absolute; inset:0; border-radius:inherit; pointer-events:none; background: linear-gradient(180deg, var(--sheen-hl) 0%, rgba(255,255,255,0) 30%); }
   .glow-accent { box-shadow: 0 8px 24px -8px rgba(58,160,255,0.4); }
-  .navblur { backdrop-filter: blur(20px) saturate(140%); background: rgba(9,10,12,0.82); }
+  .navblur { backdrop-filter: blur(20px) saturate(140%); background: var(--nav-bg); }
   @keyframes rise { from { opacity:0; transform: translateY(10px);} to { opacity:1; transform: translateY(0);} }
   .rise { animation: rise .5s cubic-bezier(.22,1,.36,1) both; }
   @media (prefers-reduced-motion: reduce) { .rise { animation: none !important; } * { transition: none !important; } }
@@ -112,6 +113,12 @@
   .coin-front { transform: translateZ(7px); }
   .coin-back { transform: rotateY(180deg) translateZ(7px); }
   .coin-edge { background: #0a6fb5; }
+:root { --base: 5 5 6; --surface: 13 14 17; --surface2: 20 21 25; --edge: 255 255 255; --ink: 244 244 245; --mute: 154 155 164; --faint: 92 93 102; --accent: 58 160 255; --accent2: 31 111 224; --up: 57 217 138; --down: 255 92 92; --sheen1: #131418; --sheen2: #0d0e11; --sheen3: #0a0b0d; --sheen-border: rgba(255,255,255,0.06); --sheen-hl: rgba(255,255,255,0.06); --nav-bg: rgba(9,10,12,0.82); color-scheme: dark; }
+  html.light { --base: 244 246 250; --surface: 255 255 255; --surface2: 233 237 243; --edge: 0 0 0; --ink: 17 20 26; --mute: 93 101 115; --faint: 110 118 132; --accent: 24 104 214; --accent2: 20 84 184; --up: 18 138 70; --down: 211 58 58; --sheen1: #ffffff; --sheen2: #fbfcfe; --sheen3: #f6f8fb; --sheen-border: rgba(16,24,40,0.08); --sheen-hl: rgba(255,255,255,0); --nav-bg: rgba(255,255,255,0.88); color-scheme: light; }
+  html.light .sheen { box-shadow: 0 1px 2px rgba(16,24,40,0.06); }
+  html.light .grain { opacity: 0.025; }
+  .page { position: fixed; inset: 0; z-index: 15; overflow-y: auto; background: rgb(var(--base)); opacity: 0; visibility: hidden; transition: opacity .25s ease, visibility 0s linear .25s; -webkit-overflow-scrolling: touch; }
+  .page.open { opacity: 1; visibility: visible; transition: opacity .25s ease, visibility 0s; }
 </style>
 </head>
 <body class="bg-base text-ink min-h-[100dvh] relative">
@@ -164,7 +171,7 @@
 
   <!-- Dashboard tiles -->
   <section class="mx-4 mt-3 grid grid-cols-4 gap-2 rise" style="animation-delay:.1s">
-    <button id="watchBtn" onclick="watchAd()" class="btn-press sheen rounded-2xl px-2 py-3 flex flex-col items-center gap-1.5 text-center" style="border-color: rgba(58,160,255,0.45);">
+    <button id="watchBtn" data-adbtn="1" onclick="watchAd()" class="btn-press sheen rounded-2xl px-2 py-3 flex flex-col items-center gap-1.5 text-center" style="border-color: rgba(58,160,255,0.45);">
       <span class="w-10 h-10 rounded-xl bg-accent/15 flex items-center justify-center"><i class="ph-fill ph-play text-[18px] text-accent"></i></span>
       <span id="watchLabel" class="text-[11px] font-medium text-ink">Watch Ads</span>
       <span id="adCount" class="text-[11px] text-mute">0 / 20</span>
@@ -175,10 +182,10 @@
       <span class="text-[11px] font-medium text-ink">Tasks</span>
       <span class="text-[11px] text-faint">Soon</span>
     </button>
-    <button onclick="showToast('Referrals coming soon', 'Invite rewards are not live yet', 'ph-clock')" class="btn-press sheen rounded-2xl px-2 py-3 flex flex-col items-center gap-1.5 text-center">
+    <button onclick="openInvite()" class="btn-press sheen rounded-2xl px-2 py-3 flex flex-col items-center gap-1.5 text-center">
       <span class="w-10 h-10 rounded-xl bg-accent/15 flex items-center justify-center"><i class="ph ph-users-three text-[18px] text-accent"></i></span>
       <span class="text-[11px] font-medium text-ink">Referrals</span>
-      <span class="text-[11px] text-faint">Soon</span>
+      <span class="text-[11px] text-mute">Invite</span>
     </button>
     <button onclick="walletTap()" class="btn-press sheen rounded-2xl px-2 py-3 flex flex-col items-center gap-1.5 text-center">
       <span id="walletIcon" class="w-10 h-10 rounded-xl bg-accent/15 flex items-center justify-center"><i class="ph-fill ph-wallet text-[18px] text-accent"></i></span>
@@ -213,7 +220,6 @@
   <div id="catTabs" class="flex items-center gap-2 mx-4 mt-4 rise" style="animation-delay:.22s">
     <button data-c="earnings" class="cat-pill text-[13px] font-medium px-3 py-1.5 rounded-lg bg-ink text-base">Earnings</button>
     <button data-c="ads" class="cat-pill text-[13px] px-3 py-1.5 rounded-lg text-mute">Ads watched</button>
-    <button data-c="referrals" class="cat-pill text-[13px] px-3 py-1.5 rounded-lg text-mute">Referrals</button>
   </div>
 
   <!-- Chart -->
@@ -233,7 +239,7 @@
   </div>
 
   <!-- Ticker card -->
-  <section class="mx-4 mt-4 rounded-2xl bg-accent/10 border border-accent/20 px-4 py-3 flex items-center justify-between rise" style="animation-delay:.3s">
+  <section onclick="navAction('stats')" role="button" class="cursor-pointer mx-4 mt-4 rounded-2xl bg-accent/10 border border-accent/20 px-4 py-3 flex items-center justify-between rise" style="animation-delay:.3s">
     <div class="flex items-center gap-3">
       <div class="flex -space-x-2">
         <span class="w-7 h-7 rounded-full bg-accent flex items-center justify-center text-[10px] font-bold text-white border-2 border-base">T</span>
@@ -241,7 +247,7 @@
       </div>
       <div>
         <p class="text-[13px] text-ink font-medium">TON / USDT</p>
-        <p class="text-[11px] text-mute">Toncoin</p>
+        <p class="text-[11px] text-mute">Gram (prev. Toncoin)</p>
       </div>
     </div>
     <div class="text-right">
@@ -254,14 +260,15 @@
 
 <!-- Bottom nav -->
 <nav class="fixed bottom-0 left-0 right-0 z-20 navblur border-t border-edge">
-  <div class="max-w-[440px] mx-auto grid grid-cols-5 items-end px-2 pt-2 pb-[calc(10px+env(safe-area-inset-bottom))]">
+  <div class="max-w-[440px] mx-auto grid grid-cols-6 items-end px-1 pt-2 pb-[calc(10px+env(safe-area-inset-bottom))]">
     <button data-nav="home" onclick="navAction('home')" class="flex flex-col items-center gap-1 py-1"><i class="ph-fill ph-house text-[19px] text-accent"></i><span class="text-[10px] text-accent">Home</span></button>
     <button data-nav="stats" onclick="navAction('stats')" class="flex flex-col items-center gap-1 py-1"><i class="ph ph-chart-line-up text-[19px] text-faint"></i><span class="text-[10px] text-faint">Stats</span></button>
-    <button onclick="watchAd()" class="btn-press flex flex-col items-center -mt-6">
+    <button data-adbtn="1" onclick="watchAd()" class="btn-press flex flex-col items-center -mt-6">
       <span class="w-12 h-12 rounded-full bg-gradient-to-br from-accent to-accent2 glow-accent flex items-center justify-center"><i class="ph-fill ph-play text-[18px] text-white"></i></span>
     </button>
     <button data-nav="wallet" onclick="navAction('wallet')" class="flex flex-col items-center gap-1 py-1"><i class="ph ph-wallet text-[19px] text-faint"></i><span class="text-[10px] text-faint">Wallet</span></button>
     <button data-nav="history" onclick="navAction('history')" class="flex flex-col items-center gap-1 py-1"><i class="ph ph-clock-counter-clockwise text-[19px] text-faint"></i><span class="text-[10px] text-faint">History</span></button>
+    <button data-nav="profile" onclick="navAction('profile')" class="flex flex-col items-center gap-1 py-1"><i class="ph ph-user text-[19px] text-faint"></i><span class="text-[10px] text-faint">Profile</span></button>
   </div>
 </nav>
 
@@ -284,6 +291,7 @@
       <button onclick="navAction('stats')" class="w-full flex items-center gap-3 px-2 py-3 rounded-xl text-left"><i class="ph ph-chart-line-up text-[18px] text-mute"></i><span class="text-[14px]">Stats</span></button>
       <button onclick="openPanel('historyPanel')" class="w-full flex items-center gap-3 px-2 py-3 rounded-xl text-left"><i class="ph ph-clock-counter-clockwise text-[18px] text-mute"></i><span class="text-[14px]">Ad history</span></button>
       <button onclick="openPanel('rewardsPanel')" class="w-full flex items-center gap-3 px-2 py-3 rounded-xl text-left"><i class="ph ph-gift text-[18px] text-mute"></i><span class="text-[14px]">Rewards</span></button>
+      <button onclick="navAction('profile')" class="w-full flex items-center gap-3 px-2 py-3 rounded-xl text-left"><i class="ph ph-user text-[18px] text-mute"></i><span class="text-[14px]">Profile</span></button>
       <button onclick="openPanel('settingsPanel')" class="w-full flex items-center gap-3 px-2 py-3 rounded-xl text-left"><i class="ph ph-gear-six text-[18px] text-mute"></i><span class="text-[14px]">Settings</span></button>
     </div>
   </div>
@@ -360,6 +368,173 @@
   </div>
 </div>
 
+<!-- Stats page -->
+<div id="statsPage" class="page">
+  <div class="max-w-[440px] mx-auto px-4 pt-5 pb-32">
+    <h1 class="text-[24px] font-semibold tracking-tight">Stats</h1>
+    <section class="mt-4 rounded-3xl sheen p-4">
+      <div class="flex items-start justify-between gap-2">
+        <div>
+          <p class="text-[13px] text-mute">TON / USDT <span class="text-faint">(GRAM)</span></p>
+          <p class="text-[26px] font-semibold tracking-tight mt-0.5">$<span id="mkPrice">--</span></p>
+          <p id="mkChange" class="text-[12px] text-faint">Loading...</p>
+        </div>
+        <div id="mkRange" class="flex gap-1">
+          <button data-k="1" onclick="setMkRange(1)" class="text-[12px] px-2.5 py-1.5 rounded-lg text-mute">1D</button>
+          <button data-k="7" onclick="setMkRange(7)" class="text-[12px] px-2.5 py-1.5 rounded-lg text-mute">7D</button>
+          <button data-k="30" onclick="setMkRange(30)" class="text-[12px] px-2.5 py-1.5 rounded-lg text-mute">1M</button>
+          <button data-k="90" onclick="setMkRange(90)" class="text-[12px] px-2.5 py-1.5 rounded-lg text-mute">3M</button>
+        </div>
+      </div>
+      <div id="candleBox" class="mt-3 h-[280px] w-full"></div>
+      <div class="flex flex-wrap items-center gap-x-4 gap-y-1 mt-3 text-[11px] text-mute">
+        <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-sm bg-accent"></span>Price up</span>
+        <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-sm bg-ink"></span>Price down</span>
+        <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-accent"></span>Ads you watched</span>
+      </div>
+    </section>
+    <section class="mt-4 rounded-3xl sheen p-4">
+      <div class="flex items-center justify-between">
+        <h2 class="text-[15px] font-semibold">Your activity</h2>
+        <div id="stRange" class="flex gap-1">
+          <button data-k="D" onclick="setStRange('D')" class="text-[12px] px-2.5 py-1.5 rounded-lg text-mute">D</button>
+          <button data-k="W" onclick="setStRange('W')" class="text-[12px] px-2.5 py-1.5 rounded-lg text-mute">W</button>
+          <button data-k="M" onclick="setStRange('M')" class="text-[12px] px-2.5 py-1.5 rounded-lg text-mute">M</button>
+          <button data-k="Y" onclick="setStRange('Y')" class="text-[12px] px-2.5 py-1.5 rounded-lg text-mute">Y</button>
+        </div>
+      </div>
+      <div class="mt-4">
+        <div class="flex items-baseline justify-between"><p class="text-[12px] text-mute">Earnings</p><p id="stEarnTotal" class="text-[15px] font-semibold">0.0000 TON</p></div>
+        <div class="h-[110px] mt-2"><canvas id="earnBars"></canvas></div>
+      </div>
+      <div class="mt-5">
+        <div class="flex items-baseline justify-between"><p class="text-[12px] text-mute">Ads watched</p><p id="stAdsTotal" class="text-[15px] font-semibold">0 ads</p></div>
+        <div class="h-[110px] mt-2"><canvas id="adsBars"></canvas></div>
+      </div>
+    </section>
+    <section class="mt-4 rounded-3xl sheen overflow-hidden">
+      <div class="px-4 py-3 border-b border-edge"><h2 class="text-[15px] font-semibold">Ad log</h2></div>
+      <div id="adLog" class="divide-y divide-edge"><div class="px-4 py-6 text-center text-[12px] text-faint">No ads watched yet</div></div>
+    </section>
+  </div>
+</div>
+
+<!-- Profile page -->
+<div id="profilePage" class="page">
+  <div class="max-w-[440px] mx-auto px-4 pt-5 pb-32">
+    <h1 class="text-[24px] font-semibold tracking-tight">Profile</h1>
+    <section class="mt-4 rounded-3xl p-5 text-white" style="background: linear-gradient(135deg, rgb(var(--accent2)) 0%, rgb(var(--accent)) 100%);">
+      <p class="text-[11px] tracking-[0.18em] text-white/85">EACH AD PAYS</p>
+      <p id="pfPay" class="text-[34px] font-semibold tracking-tight leading-none mt-2">0.0000 TON</p>
+      <p id="pfLeft" class="text-[12px] text-white/90 mt-2">20 of 20 ads left</p>
+      <button id="pfWithdraw" onclick="handleWithdraw()" class="btn-press w-full mt-4 rounded-2xl bg-white py-3.5 text-[15px] font-semibold" style="color: rgb(var(--accent2));">Withdraw 0.0000 TON</button>
+    </section>
+    <section class="mt-4 rounded-3xl sheen overflow-hidden">
+      <div class="flex items-center gap-4 p-5">
+        <div id="pfAvatar" class="w-14 h-14 rounded-full shrink-0 border border-edge" style="background: var(--coin-img) center / cover no-repeat;"></div>
+        <div>
+          <p id="pfName" class="text-[18px] font-semibold tracking-tight">Vireo user</p>
+          <p id="pfHandle" class="text-[12px] text-mute">Open in Telegram</p>
+          <p id="pfSince" class="text-[12px] text-faint"></p>
+        </div>
+      </div>
+      <div class="grid grid-cols-3 gap-px bg-edge border-t border-edge"><div class="bg-surface py-4 text-center"><p id="pfBal" class="text-[18px] font-semibold">0</p><p class="text-[10px] tracking-[0.18em] text-faint mt-1">BALANCE</p></div><div class="bg-surface py-4 text-center"><p id="pfEarned" class="text-[18px] font-semibold">0</p><p class="text-[10px] tracking-[0.18em] text-faint mt-1">EARNED</p></div><div class="bg-surface py-4 text-center"><p id="pfFriends" class="text-[18px] font-semibold">0</p><p class="text-[10px] tracking-[0.18em] text-faint mt-1">FRIENDS</p></div><div class="bg-surface py-4 text-center"><p id="pfAds" class="text-[18px] font-semibold">0</p><p class="text-[10px] tracking-[0.18em] text-faint mt-1">ADS SEEN</p></div><div class="bg-surface py-4 text-center"><p id="pfToday" class="text-[18px] font-semibold">0</p><p class="text-[10px] tracking-[0.18em] text-faint mt-1">TODAY</p></div><div class="bg-surface py-4 text-center"><p id="pfVerified" class="text-[18px] font-semibold">0</p><p class="text-[10px] tracking-[0.18em] text-faint mt-1">VERIFIED</p></div></div>
+    </section>
+    <h2 class="mt-6 text-[11px] tracking-[0.18em] text-faint">REWARDED ADS</h2>
+    <section class="mt-2 rounded-3xl sheen p-5 flex items-start gap-4">
+      <div class="flex-1">
+        <p class="text-[15px] font-semibold">Show rewarded ads</p>
+        <p class="text-[12px] text-mute mt-1.5 leading-relaxed">On by default. Ads are how you earn on Vireo. Switch this off and every ad button disappears. Nothing else changes.</p>
+      </div>
+      <button id="adsSwitch" onclick="toggleAdsPref()" aria-label="Show rewarded ads" class="relative w-12 h-7 rounded-full bg-accent shrink-0 transition-colors"><span id="adsKnob" class="knob absolute top-1 left-1 w-5 h-5 rounded-full bg-white" style="transform: translateX(20px)"></span></button>
+    </section>
+    <h2 class="mt-6 text-[11px] tracking-[0.18em] text-faint">APPEARANCE</h2>
+    <section class="mt-2 rounded-3xl sheen p-4 grid grid-cols-2 gap-3">
+      <button id="themeLight" onclick="applyTheme('light')" class="btn-press rounded-2xl py-3.5 text-[14px] font-medium flex items-center justify-center gap-2"><i class="ph ph-sun text-[16px]"></i>Light</button>
+      <button id="themeDark" onclick="applyTheme('dark')" class="btn-press rounded-2xl py-3.5 text-[14px] font-medium flex items-center justify-center gap-2"><i class="ph ph-moon text-[16px]"></i>Dark</button>
+    </section>
+    <h2 class="mt-6 text-[11px] tracking-[0.18em] text-faint">VIREO</h2>
+    <section class="mt-2 rounded-3xl sheen overflow-hidden divide-y divide-edge">
+      <button onclick="walletTap()" class="w-full flex items-center gap-4 px-4 py-3.5 text-left"><span class="w-10 h-10 rounded-xl bg-accent/15 flex items-center justify-center shrink-0"><i class="ph ph-wallet text-[18px] text-accent"></i></span><span class="flex-1"><span class="block text-[15px] font-medium">Wallet</span><span class="block text-[12px] text-mute">Balance and payouts</span></span><i class="ph ph-caret-right text-[16px] text-faint"></i></button>
+      <button onclick="openInvite()" class="w-full flex items-center gap-4 px-4 py-3.5 text-left"><span class="w-10 h-10 rounded-xl bg-accent/15 flex items-center justify-center shrink-0"><i class="ph ph-users-three text-[18px] text-accent"></i></span><span class="flex-1"><span class="block text-[15px] font-medium">Friends</span><span id="pfFriendsSub" class="block text-[12px] text-mute">0 invited</span></span><i class="ph ph-caret-right text-[16px] text-faint"></i></button>
+      <button onclick="showToast('Leaderboard coming soon', 'Top players will appear here', 'ph-clock')" class="w-full flex items-center gap-4 px-4 py-3.5 text-left"><span class="w-10 h-10 rounded-xl bg-accent/15 flex items-center justify-center shrink-0"><i class="ph ph-trophy text-[18px] text-accent"></i></span><span class="flex-1"><span class="block text-[15px] font-medium">Leaderboard</span><span class="block text-[12px] text-mute">Top players, coming soon</span></span><i class="ph ph-caret-right text-[16px] text-faint"></i></button>
+    </section>
+    <h2 class="mt-6 text-[11px] tracking-[0.18em] text-faint">HELP</h2>
+    <section class="mt-2 rounded-3xl sheen overflow-hidden divide-y divide-edge">
+      <button onclick="openPanel('supportPanel')" class="w-full flex items-center gap-4 px-4 py-3.5 text-left"><span class="w-10 h-10 rounded-xl bg-accent/15 flex items-center justify-center shrink-0"><i class="ph ph-lifebuoy text-[18px] text-accent"></i></span><span class="flex-1"><span class="block text-[15px] font-medium">Support</span><span class="block text-[12px] text-mute">FAQ and contact</span></span><i class="ph ph-caret-right text-[16px] text-faint"></i></button>
+      <button onclick="openPanel('termsPanel')" class="w-full flex items-center gap-4 px-4 py-3.5 text-left"><span class="w-10 h-10 rounded-xl bg-accent/15 flex items-center justify-center shrink-0"><i class="ph ph-shield-check text-[18px] text-accent"></i></span><span class="flex-1"><span class="block text-[15px] font-medium">Terms and privacy</span><span class="block text-[12px] text-mute">How Vireo works</span></span><i class="ph ph-caret-right text-[16px] text-faint"></i></button>
+    </section>
+    <p class="mt-6 text-[11px] text-faint leading-relaxed">Vireo v0.2. Rewards are paid in TON from ad revenue. This is not an investment.</p>
+  </div>
+</div>
+
+<!-- Invite page -->
+<div id="invitePage" class="page">
+  <div class="max-w-[440px] mx-auto px-4 pt-5 pb-32">
+    <button onclick="navAction('profile')" class="flex items-center gap-1 text-[13px] text-mute"><i class="ph ph-caret-left text-[14px]"></i>Profile</button>
+    <h1 class="text-[28px] font-semibold tracking-tight mt-3">Invite friends</h1>
+    <p class="text-[13px] text-mute mt-2 leading-relaxed">Share your link with friends. A friend counts once they have watched 5 ads.</p>
+    <section class="mt-5 rounded-3xl sheen p-5">
+      <div class="flex items-baseline justify-between">
+        <p class="text-[32px] font-semibold tracking-tight"><span id="invActive">0</span><span class="text-[16px] text-mute">/<span id="invTotal">0</span></span></p>
+        <p class="text-[12px] text-mute">active friends</p>
+      </div>
+      <div class="h-1.5 rounded-full bg-surface2 overflow-hidden mt-3"><div id="invBar" class="h-full rounded-full bg-accent" style="width:0%; transition: width .5s cubic-bezier(.22,1,.36,1);"></div></div>
+      <p id="invNote" class="text-[12px] text-mute mt-3">No friends yet. Share your link to get started.</p>
+    </section>
+    <button onclick="shareInvite()" class="btn-press w-full mt-4 rounded-2xl bg-gradient-to-r from-accent to-accent2 py-4 text-[15px] font-semibold text-white">Invite a friend</button>
+    <button onclick="copyInvite()" class="btn-press w-full mt-3 rounded-2xl border border-edge py-3.5 text-[14px] font-medium flex items-center justify-center gap-2"><i class="ph ph-copy text-[16px]"></i><span id="invCopy">Copy link</span></button>
+    <p class="text-[11px] text-faint text-center leading-relaxed mt-4 px-2">A friend counts once they have watched 5 ads, not just opened the app. Referral bonuses are coming soon.</p>
+    <section class="mt-5 rounded-3xl sheen overflow-hidden"><div id="friendList" class="divide-y divide-edge"><div class="px-5 py-10 text-center"><p class="text-[16px] font-semibold">No friends yet</p><p class="text-[12px] text-mute mt-1.5">Share your link to see them here.</p></div></div></section>
+  </div>
+</div>
+
+<!-- Support panel -->
+<div id="supportPanel" class="panel fixed inset-0 z-40 opacity-0 pointer-events-none">
+  <div class="absolute inset-0 bg-black/60" onclick="closePanel('supportPanel')"></div>
+  <div class="panel-sheet absolute inset-x-0 bottom-0 max-w-[440px] mx-auto rounded-t-3xl sheen p-5 pb-8 max-h-[80vh] overflow-y-auto">
+    <div class="w-9 h-1 rounded-full bg-edge mx-auto mb-4"></div>
+    <h2 class="text-[15px] font-semibold mb-4">Support</h2>
+    <div class="space-y-4">
+      <div><p class="text-[14px] font-medium">How do I earn?</p><p class="text-[12px] text-mute mt-1 leading-relaxed">Watch rewarded ads to the end. Each completed ad adds TON to your balance, up to 20 ads a day.</p></div>
+      <div><p class="text-[14px] font-medium">Why am I asked a quick question?</p><p class="text-[12px] text-mute mt-1 leading-relaxed">It confirms you are a real person. You solve it once and it lasts for your session.</p></div>
+      <div><p class="text-[14px] font-medium">When do I get paid?</p><p class="text-[12px] text-mute mt-1 leading-relaxed">Withdrawals join a payout queue and are sent to your connected wallet as ad revenue arrives. The minimum is 0.5 TON.</p></div>
+      <div><p class="text-[14px] font-medium">An ad did not pay. Why?</p><p class="text-[12px] text-mute mt-1 leading-relaxed">Ads must be watched to the end. Nothing is credited after the daily limit or if the quick check was skipped.</p></div>
+      <div><p class="text-[14px] font-medium">Need more help?</p><p class="text-[12px] text-mute mt-1 leading-relaxed">A contact channel is coming soon.</p></div>
+    </div>
+  </div>
+</div>
+
+<!-- Terms panel -->
+<div id="termsPanel" class="panel fixed inset-0 z-40 opacity-0 pointer-events-none">
+  <div class="absolute inset-0 bg-black/60" onclick="closePanel('termsPanel')"></div>
+  <div class="panel-sheet absolute inset-x-0 bottom-0 max-w-[440px] mx-auto rounded-t-3xl sheen p-5 pb-8 max-h-[80vh] overflow-y-auto">
+    <div class="w-9 h-1 rounded-full bg-edge mx-auto mb-4"></div>
+    <h2 class="text-[15px] font-semibold mb-4">Terms and privacy</h2>
+    <div class="space-y-3 text-[12px] text-mute leading-relaxed">
+      <p>Rewards are paid in TON and funded by ad revenue. Your balance only grows from ads you watch to the end.</p>
+      <p>Withdrawals are queued and sent to the wallet you connect. The minimum withdrawal is 0.5 TON.</p>
+      <p>Vireo is not an investment, a bank, or financial advice. Crypto prices change and rewards are not guaranteed.</p>
+      <p>Bots, multiple accounts and fake views are not allowed, and rewards may be withheld for abuse.</p>
+      <p>We store your Telegram ID, your balance, your ad history and the wallet address you withdraw to. We do not sell your data.</p>
+    </div>
+  </div>
+</div>
+
+<!-- Quick check modal -->
+<div id="verifyModal" class="panel fixed inset-0 z-50 flex items-center justify-center px-5 opacity-0 pointer-events-none">
+  <div class="absolute inset-0 bg-black/60"></div>
+  <div class="panel-sheet relative w-full max-w-[400px] rounded-3xl sheen p-5">
+    <h2 class="text-[17px] font-semibold text-center">Quick check</h2>
+    <p class="text-[13px] text-mute text-center mt-2 leading-relaxed">Solve this once and you can watch ads for the rest of your session.</p>
+    <div class="mt-4 rounded-2xl border border-edge bg-surface2/40 overflow-hidden"><canvas id="vCanvas" width="600" height="140" class="w-full block" role="img" aria-label="Verification question"></canvas></div>
+    <input id="vAnswer" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Answer" class="mt-3 w-full rounded-2xl border border-edge bg-transparent px-4 py-3.5 text-[16px] text-ink text-center outline-none" onkeydown="if(event.key==='Enter')submitVerify()">
+    <p id="vError" class="text-[12px] text-down text-center mt-2 min-h-[16px]"></p>
+    <button onclick="submitVerify()" class="btn-press w-full mt-2 rounded-2xl bg-gradient-to-r from-accent to-accent2 py-3.5 text-[15px] font-semibold text-white">Continue</button>
+    <button onclick="closeVerify(false)" class="btn-press w-full mt-2 rounded-2xl border border-edge py-3.5 text-[15px] font-medium">Cancel</button>
+  </div>
+</div>
+
 <!-- Wallet panel -->
 <div id="walletPanel" class="panel fixed inset-0 z-40 opacity-0 pointer-events-none">
   <div class="absolute inset-0 bg-black/60" onclick="closePanel('walletPanel')"></div>
@@ -377,6 +552,7 @@
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
+<script src="https://cdn.jsdelivr.net/npm/lightweight-charts@4/dist/lightweight-charts.standalone.production.js"></script>
 <script src="https://sad.adsgram.ai/js/sad.min.js"></script>
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <script src="https://unpkg.com/@tonconnect/ui@2/dist/tonconnect-ui.min.js"></script>
@@ -415,7 +591,7 @@
   }
 
   // Fade-in panels
-  const PANEL_IDS = ['menuPanel', 'settingsPanel', 'notifPanel', 'historyPanel', 'rewardsPanel', 'walletPanel'];
+  const PANEL_IDS = ['menuPanel', 'settingsPanel', 'notifPanel', 'historyPanel', 'rewardsPanel', 'walletPanel', 'supportPanel', 'termsPanel'];
   function closePanel(id) {
     const p = document.getElementById(id);
     if (!p) return;
@@ -433,17 +609,32 @@
   }
 
   // Bottom nav + menu navigation
-  function navAction(name) {
-    closeAllPanels();
-    document.querySelectorAll('nav [data-nav]').forEach(b => {
+  function setNavActive(name) {
+    currentNav = name;
+    document.querySelectorAll('nav [data-nav]').forEach((b) => {
       const active = b.dataset.nav === name;
       b.querySelector('i').classList.toggle('text-accent', active);
       b.querySelector('i').classList.toggle('text-faint', !active);
       b.querySelector('span').classList.toggle('text-accent', active);
       b.querySelector('span').classList.toggle('text-faint', !active);
     });
-    if (name === 'home') window.scrollTo({ top: 0, behavior: 'smooth' });
-    if (name === 'stats') document.getElementById('chartSection').scrollIntoView({ behavior: 'smooth' });
+  }
+
+  function showPage(id) {
+    PAGES.forEach((pg) => {
+      const el = document.getElementById(pg);
+      if (el) el.classList.toggle('open', pg === id);
+    });
+    const open = id && document.getElementById(id);
+    if (open) open.scrollTop = 0;
+  }
+
+  function navAction(name) {
+    closeAllPanels();
+    setNavActive(name);
+    if (name === 'home') { showPage(null); window.scrollTo({ top: 0, behavior: 'smooth' }); }
+    if (name === 'stats') { showPage('statsPage'); onStatsOpen(); }
+    if (name === 'profile') { showPage('profilePage'); if (lastMe) renderProfile(lastMe); }
     if (name === 'wallet') walletTap();
     if (name === 'history') openPanel('historyPanel');
     haptic('light');
@@ -656,6 +847,9 @@
     balance = me.balance / 1e9;
     adsToday = me.today.ads;
     adsLimit = me.limit;
+    verified = !!me.verified;
+    lastMe = me;
+    renderProfile(me);
     renderBalance();
     document.getElementById('todayDelta').textContent = '+' + fmtTon(me.today.nano);
     document.getElementById('adCount').textContent = adsToday + ' / ' + adsLimit;
@@ -697,10 +891,15 @@
   }
 
   async function watchAd() {
-    if (watching) return;
+    if (watching || verifying) return;
+    if (adsOff) { showToast('Ads are off', 'Turn them back on in Profile', 'ph-info'); return; }
     if (!initData()) { showToast('Open in Telegram', 'Rewards only work inside the Telegram app', 'ph-warning'); return; }
     if (adsToday >= adsLimit) { showToast('Daily limit reached', 'New ads unlock after midnight UTC', 'ph-clock'); return; }
     if (!AdController) { showToast('Ads unavailable', 'Ad SDK did not load, check your connection', 'ph-warning'); return; }
+    if (!verified) {
+      const passed = await runVerify();
+      if (!passed) return;
+    }
     watching = true;
     const label = document.getElementById('watchLabel');
     label.textContent = 'Loading...';
@@ -813,12 +1012,436 @@
 
   renderSpark([0, 0, 0, 0, 0, 0, 0]);
 
+  // ---------- Pages, theme, profile, verification, stats ----------
+  const APP_LINK = 'https://t.me/VireoTon_bot/app';
+  const PAGES = ['statsPage', 'profilePage', 'invitePage'];
+  const MK = { chart: null, series: null, days: 7, candles: [], cache: {} };
+  const ST = { range: 'W', events: [], earn: null, ads: null };
+  let verified = false, verifying = false, vToken = '', vResolve = null;
+  let adsOff = false, lastMe = null, currentNav = 'home';
+  try { adsOff = localStorage.getItem('vireo.ads') === 'off'; } catch (e) {}
+
+  const esc = (t) => String(t).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  const isLight = () => document.documentElement.classList.contains('light');
+  const tzOff = () => -new Date().getTimezoneOffset() * 60;
+  function tgUser() {
+    const tg = window.Telegram && window.Telegram.WebApp;
+    return (tg && tg.initDataUnsafe && tg.initDataUnsafe.user) || null;
+  }
+  function myId() { const u = tgUser(); return u ? String(u.id) : ''; }
+
+  // --- theme ---
+  function chartTheme() {
+    const light = isLight();
+    const grid = light ? 'rgba(0,0,0,0.06)' : 'rgba(255,255,255,0.05)';
+    return {
+      layout: { background: { type: 'solid', color: 'transparent' }, textColor: light ? '#5d6573' : '#8b8d97' },
+      grid: { vertLines: { color: grid }, horzLines: { color: grid } }
+    };
+  }
+  function candleColors() {
+    const down = isLight() ? '#17181c' : '#f4f4f5';
+    return { upColor: '#3AA0FF', borderUpColor: '#3AA0FF', wickUpColor: '#3AA0FF', downColor: down, borderDownColor: down, wickDownColor: down };
+  }
+  function paintThemeButtons() {
+    const light = isLight();
+    [['themeLight', light], ['themeDark', !light]].forEach((pair) => {
+      const b = document.getElementById(pair[0]);
+      if (!b) return;
+      b.classList.toggle('bg-ink', pair[1]);
+      b.classList.toggle('text-base', pair[1]);
+      b.classList.toggle('border', !pair[1]);
+      b.classList.toggle('border-edge', !pair[1]);
+      b.classList.toggle('text-mute', !pair[1]);
+    });
+  }
+  function applyTheme(t) {
+    const light = t === 'light';
+    document.documentElement.classList.toggle('light', light);
+    try { localStorage.setItem('vireo.theme', light ? 'light' : 'dark'); } catch (e) {}
+    const meta = document.querySelector('meta[name="theme-color"]');
+    if (meta) meta.setAttribute('content', light ? '#f4f6fa' : '#050506');
+    try { window.Telegram.WebApp.setBackgroundColor(light ? '#f4f6fa' : '#050506'); } catch (e) {}
+    if (MK.chart) { MK.chart.applyOptions(chartTheme()); MK.series.applyOptions(candleColors()); }
+    paintThemeButtons();
+  }
+
+  // --- rewarded ads preference ---
+  function paintAdsPref() {
+    document.querySelectorAll('[data-adbtn]').forEach((el) => el.classList.toggle('invisible', adsOff));
+    const sw = document.getElementById('adsSwitch');
+    const knob = document.getElementById('adsKnob');
+    if (sw) sw.classList.toggle('bg-accent', !adsOff);
+    if (sw) sw.classList.toggle('bg-surface2', adsOff);
+    if (knob) knob.style.transform = adsOff ? 'translateX(0)' : 'translateX(20px)';
+  }
+  function toggleAdsPref() {
+    adsOff = !adsOff;
+    try { localStorage.setItem('vireo.ads', adsOff ? 'off' : 'on'); } catch (e) {}
+    paintAdsPref();
+    haptic('light');
+  }
+
+  // --- profile ---
+  function untilReset() {
+    const n = new Date();
+    const next = Date.UTC(n.getUTCFullYear(), n.getUTCMonth(), n.getUTCDate() + 1);
+    const mins = Math.max(1, Math.floor((next - n.getTime()) / 60000));
+    return Math.floor(mins / 60) + 'h ' + (mins % 60) + 'm';
+  }
+  function renderProfile(me) {
+    const u = tgUser();
+    const name = u ? ((u.first_name || '') + (u.last_name ? ' ' + u.last_name : '')).trim() : '';
+    const set = (id, v) => { document.getElementById(id).textContent = v; };
+    set('pfName', name || 'Vireo user');
+    set('pfHandle', u ? (u.username ? '@' + u.username : 'ID ' + u.id) : 'Open in Telegram');
+    if (u && typeof u.photo_url === 'string' && u.photo_url.indexOf('https://') === 0) {
+      document.getElementById('pfAvatar').style.backgroundImage = 'url("' + u.photo_url + '")';
+    }
+    set('pfSince', me.joined ? 'Since ' + new Date(me.joined * 1000).toLocaleDateString([], { month: 'long', year: 'numeric' }) : '');
+    set('pfPay', fmtTon(me.reward) + ' TON');
+    set('pfLeft', Math.max(0, me.limit - me.today.ads) + ' of ' + me.limit + ' ads left \u00b7 refills in ' + untilReset());
+    set('pfWithdraw', 'Withdraw ' + fmtTon(me.balance) + ' TON');
+    set('pfBal', fmtTon(me.balance));
+    set('pfEarned', fmtTon(me.totals.nano));
+    set('pfFriends', me.friends);
+    set('pfAds', me.totals.ads);
+    set('pfToday', me.today.ads + '/' + me.limit);
+    set('pfVerified', me.verified ? 'yes' : 'no');
+    set('pfFriendsSub', me.friends + ' invited');
+  }
+
+  // --- invite friends ---
+  function inviteLink() { return APP_LINK + '?startapp=ref_' + myId(); }
+  function openInvite() { showPage('invitePage'); setNavActive('profile'); loadFriends(); }
+  async function loadFriends() {
+    if (!initData()) return;
+    try {
+      const r = await api('/api/friends');
+      document.getElementById('invActive').textContent = r.active;
+      document.getElementById('invTotal').textContent = r.invited;
+      document.getElementById('invBar').style.width = (r.invited ? Math.round(r.active / r.invited * 100) : 0) + '%';
+      document.getElementById('invNote').textContent = r.invited
+        ? r.active + ' of ' + r.invited + ' friends have watched 5 ads.'
+        : 'No friends yet. Share your link to get started.';
+      if (r.list.length) {
+        document.getElementById('friendList').innerHTML = r.list.map((f) =>
+          '<div class="flex items-center gap-3 px-4 py-3">' +
+          '<span class="w-9 h-9 rounded-full bg-accent/15 flex items-center justify-center shrink-0"><i class="ph ph-user text-[14px] text-accent"></i></span>' +
+          '<div class="flex-1"><p class="text-[13px] text-ink">' + esc(f.name) + '</p><p class="text-[11px] text-faint">' + f.ads + ' ads watched</p></div>' +
+          '<span class="text-[12px] ' + (f.active ? 'text-up' : 'text-faint') + '">' + (f.active ? 'Active' : 'Pending') + '</span></div>'
+        ).join('');
+      }
+    } catch (e) { showToast('Connection problem', 'Could not load your friends', 'ph-warning'); }
+  }
+  function copyText(text) {
+    try { if (navigator.clipboard && navigator.clipboard.writeText) return navigator.clipboard.writeText(text); } catch (e) {}
+    return new Promise((resolve, reject) => {
+      try {
+        const ta = document.createElement('textarea');
+        ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+        document.body.appendChild(ta); ta.select();
+        const ok = document.execCommand('copy');
+        document.body.removeChild(ta);
+        if (ok) resolve(); else reject(new Error('copy failed'));
+      } catch (e) { reject(e); }
+    });
+  }
+  function copyInvite() {
+    if (!myId()) { showToast('Open in Telegram', 'Your invite link needs your Telegram account', 'ph-warning'); return; }
+    haptic('light');
+    copyText(inviteLink()).then(() => showToast('Link copied', 'Send it to a friend', 'ph-check')).catch(() => showToast('Could not copy', inviteLink(), 'ph-warning'));
+  }
+  function shareInvite() {
+    if (!myId()) { showToast('Open in Telegram', 'Your invite link needs your Telegram account', 'ph-warning'); return; }
+    haptic('light');
+    const url = 'https://t.me/share/url?url=' + encodeURIComponent(inviteLink()) + '&text=' + encodeURIComponent('Watch short ads and earn real TON on Vireo.');
+    const tg = window.Telegram && window.Telegram.WebApp;
+    if (tg && tg.openTelegramLink) tg.openTelegramLink(url); else window.open(url, '_blank');
+  }
+  async function maybeRegisterRef() {
+    try {
+      const tg = window.Telegram && window.Telegram.WebApp;
+      const sp = tg && tg.initDataUnsafe && tg.initDataUnsafe.start_param;
+      if (!sp || !/^ref_\d{1,15}$/.test(sp)) return;
+      if (localStorage.getItem('vireo.refSent') === sp) return;
+      await api('/api/friends', { method: 'POST', body: { code: sp } });
+      localStorage.setItem('vireo.refSent', sp);
+    } catch (e) {}
+  }
+
+  // --- quick check (human verification) ---
+  function drawChallenge(text) {
+    const cv = document.getElementById('vCanvas');
+    const cx = cv.getContext('2d');
+    const W = cv.width, H = cv.height;
+    cx.clearRect(0, 0, W, H);
+    const light = isLight();
+    for (let i = 0; i < 160; i++) {
+      cx.fillStyle = 'rgba(' + (light ? '0,0,0' : '255,255,255') + ',' + (Math.random() * 0.25).toFixed(2) + ')';
+      cx.fillRect(Math.random() * W, Math.random() * H, 2, 2);
+    }
+    let size = 52;
+    cx.font = '700 ' + size + 'px "General Sans", system-ui, sans-serif';
+    while (cx.measureText(text).width > W - 60 && size > 20) {
+      size -= 2;
+      cx.font = '700 ' + size + 'px "General Sans", system-ui, sans-serif';
+    }
+    let x = (W - cx.measureText(text).width) / 2;
+    cx.textBaseline = 'middle';
+    cx.textAlign = 'center';
+    cx.fillStyle = light ? '#14161a' : '#f4f4f5';
+    Array.from(text).forEach((ch) => {
+      const w = cx.measureText(ch).width;
+      cx.save();
+      cx.translate(x + w / 2, H / 2 + (Math.random() - 0.5) * 10);
+      cx.rotate((Math.random() - 0.5) * 0.35);
+      cx.fillText(ch, 0, 0);
+      cx.restore();
+      x += w;
+    });
+    cx.strokeStyle = 'rgba(58,160,255,0.7)';
+    cx.lineWidth = 2;
+    for (let k = 0; k < 2; k++) {
+      cx.beginPath();
+      cx.moveTo(10, H * (0.3 + 0.4 * Math.random()));
+      cx.bezierCurveTo(W * 0.3, H * Math.random(), W * 0.7, H * Math.random(), W - 10, H * (0.3 + 0.4 * Math.random()));
+      cx.stroke();
+    }
+    cv.setAttribute('aria-label', text);
+  }
+  async function loadChallenge() {
+    const c = await api('/api/verify');
+    vToken = c.token;
+    drawChallenge(c.question);
+    document.getElementById('vAnswer').value = '';
+    document.getElementById('vError').textContent = '';
+  }
+  function runVerify() {
+    return new Promise((resolve) => {
+      verifying = true;
+      vResolve = resolve;
+      openPanel('verifyModal');
+      loadChallenge().catch(() => {
+        closeVerify(false);
+        showToast('Connection problem', 'Could not load the quick check', 'ph-warning');
+      });
+    });
+  }
+  function closeVerify(ok) {
+    closePanel('verifyModal');
+    verifying = false;
+    const r = vResolve;
+    vResolve = null;
+    if (r) r(ok);
+  }
+  async function submitVerify() {
+    const ans = document.getElementById('vAnswer').value;
+    if (!ans.trim() || !vToken) return;
+    try {
+      await api('/api/verify', { method: 'POST', body: { token: vToken, answer: ans } });
+      verified = true;
+      closeVerify(true);
+    } catch (e) {
+      const msg = e.message || 'Not quite.';
+      if (e.status !== 429) { try { await loadChallenge(); } catch (x) {} }
+      document.getElementById('vError').textContent = msg;
+    }
+  }
+
+  // --- stats page ---
+  function paintPills(id, key) {
+    const box = document.getElementById(id);
+    if (!box) return;
+    box.querySelectorAll('button').forEach((b) => {
+      const on = b.dataset.k === key;
+      b.classList.toggle('bg-surface2', on);
+      b.classList.toggle('text-ink', on);
+      b.classList.toggle('text-mute', !on);
+    });
+  }
+  function ensureCandleChart() {
+    if (MK.chart) return true;
+    const box = document.getElementById('candleBox');
+    if (!window.LightweightCharts || !box) return false;
+    try {
+      MK.chart = window.LightweightCharts.createChart(box, Object.assign({
+        width: box.clientWidth || 340, height: 280,
+        rightPriceScale: { borderVisible: false },
+        timeScale: { borderVisible: false, timeVisible: true, secondsVisible: false },
+        crosshair: { mode: 1 }
+      }, chartTheme()));
+      MK.series = MK.chart.addCandlestickSeries(candleColors());
+      return true;
+    } catch (e) { MK.chart = null; return false; }
+  }
+  function sizeCandle() {
+    const box = document.getElementById('candleBox');
+    if (MK.chart && box && box.clientWidth) MK.chart.applyOptions({ width: box.clientWidth });
+  }
+  async function fetchOhlc(days) {
+    const hit = MK.cache[days];
+    if (hit && Date.now() - hit.t < 120000) return hit.d;
+    const ids = ['the-open-network', 'gram'];
+    for (let i = 0; i < ids.length; i++) {
+      try {
+        const r = await fetch('https://api.coingecko.com/api/v3/coins/' + ids[i] + '/ohlc?vs_currency=usd&days=' + days);
+        if (!r.ok) continue;
+        const j = await r.json();
+        if (Array.isArray(j) && j.length) { MK.cache[days] = { t: Date.now(), d: j }; return j; }
+      } catch (e) {}
+    }
+    throw new Error('no market data');
+  }
+  function toCandles(raw) {
+    const off = tzOff();
+    const seen = {};
+    const out = [];
+    raw.forEach((r) => {
+      const time = Math.floor(r[0] / 1000) + off;
+      if (seen[time]) return;
+      seen[time] = 1;
+      out.push({ time: time, open: r[1], high: r[2], low: r[3], close: r[4] });
+    });
+    return out.sort((a, b) => a.time - b.time);
+  }
+  function drawMarkers() {
+    if (!MK.series || !MK.candles.length) return;
+    const c = MK.candles, off = tzOff(), counts = {};
+    ST.events.forEach((ev) => {
+      const ts = ev[0];
+      let lo = 0, hi = c.length - 1, idx = -1;
+      while (lo <= hi) {
+        const mid = (lo + hi) >> 1;
+        if (c[mid].time - off <= ts) { idx = mid; lo = mid + 1; } else hi = mid - 1;
+      }
+      if (idx < 0) return;
+      const step = idx < c.length - 1 ? c[idx + 1].time - c[idx].time : (c.length > 1 ? c[idx].time - c[idx - 1].time : 3600);
+      if (ts >= c[idx].time - off + step) return;
+      counts[idx] = (counts[idx] || 0) + 1;
+    });
+    const marks = Object.keys(counts).map(Number).sort((a, b) => a - b).map((i) => ({
+      time: c[i].time, position: 'belowBar', color: '#3AA0FF', shape: 'circle', text: counts[i] > 1 ? String(counts[i]) : ''
+    }));
+    MK.series.setMarkers(marks);
+  }
+  async function loadMarket() {
+    if (!ensureCandleChart()) {
+      document.getElementById('mkChange').textContent = 'Chart unavailable';
+      return;
+    }
+    try {
+      const candles = toCandles(await fetchOhlc(MK.days));
+      MK.candles = candles;
+      MK.series.setData(candles);
+      const last = candles[candles.length - 1].close;
+      MK.series.applyOptions({ priceFormat: { type: 'price', precision: last < 1 ? 4 : 3, minMove: last < 1 ? 0.0001 : 0.001 } });
+      const change = (last - candles[0].open) / candles[0].open * 100;
+      document.getElementById('mkPrice').textContent = last.toFixed(last < 1 ? 4 : 3);
+      const el = document.getElementById('mkChange');
+      el.textContent = (change >= 0 ? '+' : '') + change.toFixed(2) + '% in this range';
+      el.className = 'text-[12px] ' + (change >= 0 ? 'text-up' : 'text-down');
+      drawMarkers();
+      MK.chart.timeScale().fitContent();
+    } catch (e) {
+      document.getElementById('mkChange').textContent = 'Market data unavailable';
+    }
+  }
+  function setMkRange(days) { MK.days = days; paintPills('mkRange', String(days)); loadMarket(); }
+
+  function makeBuckets(range) {
+    const now = new Date(), out = [];
+    if (range === 'D') {
+      const h0 = new Date(now); h0.setMinutes(0, 0, 0);
+      for (let i = 23; i >= 0; i--) {
+        const s = new Date(h0.getTime() - i * 3600000);
+        out.push({ s: s.getTime(), e: s.getTime() + 3600000, label: s.toLocaleTimeString([], { hour: 'numeric' }) });
+      }
+    } else if (range === 'W' || range === 'M') {
+      const n = range === 'W' ? 7 : 30;
+      const d0 = new Date(now); d0.setHours(0, 0, 0, 0);
+      for (let i = n - 1; i >= 0; i--) {
+        const s = new Date(d0); s.setDate(s.getDate() - i);
+        const e = new Date(s); e.setDate(e.getDate() + 1);
+        out.push({ s: s.getTime(), e: e.getTime(), label: range === 'W' ? s.toLocaleDateString([], { weekday: 'short' }) : String(s.getDate()) });
+      }
+    } else {
+      const m0 = new Date(now.getFullYear(), now.getMonth(), 1);
+      for (let i = 11; i >= 0; i--) {
+        const s = new Date(m0.getFullYear(), m0.getMonth() - i, 1);
+        const e = new Date(s.getFullYear(), s.getMonth() + 1, 1);
+        out.push({ s: s.getTime(), e: e.getTime(), label: s.toLocaleDateString([], { month: 'short' }) });
+      }
+    }
+    return out;
+  }
+  function mkBar(id) {
+    const el = document.getElementById(id);
+    if (!el || !window.Chart) return null;
+    try {
+      return new Chart(el, {
+        type: 'bar',
+        data: { labels: [], datasets: [{ data: [], backgroundColor: '#3AA0FF', borderRadius: 4, maxBarThickness: 16 }] },
+        options: {
+          responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } },
+          scales: {
+            x: { grid: { display: false }, border: { display: false }, ticks: { color: '#7b8190', font: { size: 10 }, maxRotation: 0, autoSkip: true, maxTicksLimit: 8 } },
+            y: { display: false, beginAtZero: true }
+          }
+        }
+      });
+    } catch (e) { return null; }
+  }
+  function renderActivity() {
+    if (!ST.earn) ST.earn = mkBar('earnBars');
+    if (!ST.ads) ST.ads = mkBar('adsBars');
+    const buckets = makeBuckets(ST.range);
+    const ads = buckets.map(() => 0), earn = buckets.map(() => 0);
+    ST.events.forEach((ev) => {
+      const t = ev[0] * 1000;
+      for (let i = 0; i < buckets.length; i++) {
+        if (t >= buckets[i].s && t < buckets[i].e) { ads[i] += 1; earn[i] += ev[1]; break; }
+      }
+    });
+    const labels = buckets.map((b) => b.label);
+    if (ST.earn) { ST.earn.data.labels = labels; ST.earn.data.datasets[0].data = earn.map((n) => +(n / 1e9).toFixed(4)); ST.earn.update(); }
+    if (ST.ads) { ST.ads.data.labels = labels; ST.ads.data.datasets[0].data = ads; ST.ads.update(); }
+    document.getElementById('stEarnTotal').textContent = fmtTon(earn.reduce((a, b) => a + b, 0)) + ' TON';
+    document.getElementById('stAdsTotal').textContent = ads.reduce((a, b) => a + b, 0) + ' ads';
+    const log = ST.events.slice(0, 10);
+    document.getElementById('adLog').innerHTML = log.length ? log.map((ev) =>
+      '<div class="flex items-center justify-between px-4 py-3">' +
+      '<span class="text-[13px] text-ink">' + new Date(ev[0] * 1000).toLocaleString([], { month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' }) + '</span>' +
+      '<span class="text-[13px] text-up font-medium">+' + fmtTon(ev[1]) + ' TON</span></div>'
+    ).join('') : '<div class="px-4 py-6 text-center text-[12px] text-faint">No ads watched yet</div>';
+  }
+  function setStRange(r) { ST.range = r; paintPills('stRange', r); renderActivity(); }
+  async function loadStats() {
+    if (initData()) {
+      try { const r = await api('/api/stats'); ST.events = r.events || []; }
+      catch (e) { showToast('Connection problem', 'Could not load your ad history', 'ph-warning'); }
+    }
+    renderActivity();
+    drawMarkers();
+  }
+  function onStatsOpen() {
+    ensureCandleChart();
+    sizeCandle();
+    loadMarket();
+    loadStats();
+  }
+
   zeroDemoCharts();
   if (initData()) {
-    api('/api/me').then(applyMe).catch(() => showToast('Connection problem', 'Could not load your balance', 'ph-warning'));
+    api('/api/me').then((me) => { applyMe(me); maybeRegisterRef(); }).catch(() => showToast('Connection problem', 'Could not load your balance', 'ph-warning'));
   } else {
     refreshChart();
   }
+  applyTheme(isLight() ? 'light' : 'dark');
+  paintAdsPref();
+  paintPills('mkRange', String(MK.days));
+  paintPills('stRange', ST.range);
+  window.addEventListener('resize', sizeCandle);
 </script>
 </body>
 </html>

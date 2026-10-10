@@ -6,26 +6,36 @@ module.exports = async (req, res) => {
     const user = verifyInitData(req.headers['x-telegram-init-data']);
     if (!user) return res.status(401).json({ error: 'unauthorized' });
     const uid = String(user.id);
+    const now = Math.floor(Date.now() / 1000);
     const dates = lastDays(7);
     const out = await pipeline([
+      ['SETNX', 'joined:' + uid, String(now)],
+      ['GET', 'joined:' + uid],
       ['GET', 'bal:' + uid],
       ['GET', 'pend:' + uid],
+      ['EXISTS', 'verified:' + uid],
+      ['HMGET', 'tot:' + uid, 'ads', 'nano'],
+      ['HLEN', 'friends:' + uid],
       ...dates.map((d) => ['HMGET', 'day:' + uid + ':' + d, 'ads', 'nano']),
       ['LRANGE', 'ev:' + uid, '0', '4']
     ]);
     const days = dates.map((d, i) => ({
       date: d,
-      ads: Number(out[2 + i][0] || 0),
-      nano: Number(out[2 + i][1] || 0)
+      ads: Number(out[7 + i][0] || 0),
+      nano: Number(out[7 + i][1] || 0)
     }));
-    const recent = (out[9] || []).map((e) => {
+    const recent = (out[14] || []).map((e) => {
       const parts = String(e).split(':');
       return { ts: Number(parts[0]), nano: Number(parts[1]) };
     });
     const today = days[days.length - 1];
     return res.status(200).json({
-      balance: Number(out[0] || 0),
-      pending: Number(out[1] || 0),
+      balance: Number(out[2] || 0),
+      pending: Number(out[3] || 0),
+      verified: Number(out[4]) === 1,
+      joined: Number(out[1] || now),
+      totals: { ads: Number((out[5] || [])[0] || 0), nano: Number((out[5] || [])[1] || 0) },
+      friends: Number(out[6] || 0),
       today: { ads: today.ads, nano: today.nano },
       days,
       recent,
