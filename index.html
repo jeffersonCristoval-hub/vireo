@@ -260,14 +260,13 @@
 
 <!-- Bottom nav -->
 <nav class="fixed bottom-0 left-0 right-0 z-20 navblur border-t border-edge">
-  <div class="max-w-[440px] mx-auto grid grid-cols-6 items-end px-1 pt-2 pb-[calc(10px+env(safe-area-inset-bottom))]">
+  <div class="max-w-[440px] mx-auto grid grid-cols-5 items-end px-1 pt-2 pb-[calc(10px+env(safe-area-inset-bottom))]">
     <button data-nav="home" onclick="navAction('home')" class="flex flex-col items-center gap-1 py-1"><i class="ph-fill ph-house text-[19px] text-accent"></i><span class="text-[10px] text-accent">Home</span></button>
     <button data-nav="stats" onclick="navAction('stats')" class="flex flex-col items-center gap-1 py-1"><i class="ph ph-chart-line-up text-[19px] text-faint"></i><span class="text-[10px] text-faint">Stats</span></button>
     <button data-adbtn="1" onclick="watchAd()" class="btn-press flex flex-col items-center -mt-6">
       <span class="w-12 h-12 rounded-full bg-gradient-to-br from-accent to-accent2 glow-accent flex items-center justify-center"><i class="ph-fill ph-play text-[18px] text-white"></i></span>
     </button>
     <button data-nav="wallet" onclick="navAction('wallet')" class="flex flex-col items-center gap-1 py-1"><i class="ph ph-wallet text-[19px] text-faint"></i><span class="text-[10px] text-faint">Wallet</span></button>
-    <button data-nav="history" onclick="navAction('history')" class="flex flex-col items-center gap-1 py-1"><i class="ph ph-clock-counter-clockwise text-[19px] text-faint"></i><span class="text-[10px] text-faint">History</span></button>
     <button data-nav="profile" onclick="navAction('profile')" class="flex flex-col items-center gap-1 py-1"><i class="ph ph-user text-[19px] text-faint"></i><span class="text-[10px] text-faint">Profile</span></button>
   </div>
 </nav>
@@ -306,7 +305,7 @@
     <div class="space-y-4">
       <div class="flex items-center justify-between">
         <div><p class="text-[14px]">Push notifications</p><p class="text-[11px] text-faint">Reward and payout alerts</p></div>
-        <span class="relative w-9 h-5 rounded-full bg-accent"><span class="absolute top-0.5 w-4 h-4 rounded-full bg-white" style="transform:translateX(16px)"></span></span>
+        <button id="pushSwitch" onclick="togglePush()" aria-label="Push notifications" class="relative w-11 h-6 rounded-full bg-accent shrink-0 transition-colors"><span id="pushKnob" class="knob absolute top-0.5 left-0.5 w-5 h-5 rounded-full bg-white" style="transform: translateX(20px)"></span></button>
       </div>
       <button onclick="connectWallet()" class="w-full text-left px-3 py-3 rounded-xl border border-edge text-[14px] text-mute">Disconnect wallet</button>
       <p class="text-[11px] text-faint pt-1">Vireo v0.1, connected to TON mainnet</p>
@@ -456,6 +455,7 @@
     <h2 class="mt-6 text-[11px] tracking-[0.18em] text-faint">VIREO</h2>
     <section class="mt-2 rounded-3xl sheen overflow-hidden divide-y divide-edge">
       <button onclick="walletTap()" class="w-full flex items-center gap-4 px-4 py-3.5 text-left"><span class="w-10 h-10 rounded-xl bg-accent/15 flex items-center justify-center shrink-0"><i class="ph ph-wallet text-[18px] text-accent"></i></span><span class="flex-1"><span class="block text-[15px] font-medium">Wallet</span><span class="block text-[12px] text-mute">Balance and payouts</span></span><i class="ph ph-caret-right text-[16px] text-faint"></i></button>
+      <button onclick="openPanel('historyPanel')" class="w-full flex items-center gap-4 px-4 py-3.5 text-left"><span class="w-10 h-10 rounded-xl bg-accent/15 flex items-center justify-center shrink-0"><i class="ph ph-clock-counter-clockwise text-[18px] text-accent"></i></span><span class="flex-1"><span class="block text-[15px] font-medium">History</span><span class="block text-[12px] text-mute">Daily ad earnings</span></span><i class="ph ph-caret-right text-[16px] text-faint"></i></button>
       <button onclick="openInvite()" class="w-full flex items-center gap-4 px-4 py-3.5 text-left"><span class="w-10 h-10 rounded-xl bg-accent/15 flex items-center justify-center shrink-0"><i class="ph ph-users-three text-[18px] text-accent"></i></span><span class="flex-1"><span class="block text-[15px] font-medium">Friends</span><span id="pfFriendsSub" class="block text-[12px] text-mute">0 invited</span></span><i class="ph ph-caret-right text-[16px] text-faint"></i></button>
       <button onclick="showToast('Leaderboard coming soon', 'Top players will appear here', 'ph-clock')" class="w-full flex items-center gap-4 px-4 py-3.5 text-left"><span class="w-10 h-10 rounded-xl bg-accent/15 flex items-center justify-center shrink-0"><i class="ph ph-trophy text-[18px] text-accent"></i></span><span class="flex-1"><span class="block text-[15px] font-medium">Leaderboard</span><span class="block text-[12px] text-mute">Top players, coming soon</span></span><i class="ph ph-caret-right text-[16px] text-faint"></i></button>
     </section>
@@ -631,7 +631,7 @@
 
   function navAction(name) {
     closeAllPanels();
-    setNavActive(name);
+    setNavActive(name === 'history' ? 'profile' : name);
     if (name === 'home') { showPage(null); window.scrollTo({ top: 0, behavior: 'smooth' }); }
     if (name === 'stats') { showPage('statsPage'); onStatsOpen(); }
     if (name === 'profile') { showPage('profilePage'); if (lastMe) renderProfile(lastMe); }
@@ -1019,7 +1019,9 @@
   const ST = { range: 'W', events: [], earn: null, ads: null };
   let verified = false, verifying = false, vToken = '', vResolve = null;
   let adsOff = false, lastMe = null, currentNav = 'home';
+  let pushOn = true;
   try { adsOff = localStorage.getItem('vireo.ads') === 'off'; } catch (e) {}
+  try { pushOn = localStorage.getItem('vireo.push') !== 'off'; } catch (e) {}
 
   const esc = (t) => String(t).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
   const isLight = () => document.documentElement.classList.contains('light');
@@ -1079,6 +1081,19 @@
     adsOff = !adsOff;
     try { localStorage.setItem('vireo.ads', adsOff ? 'off' : 'on'); } catch (e) {}
     paintAdsPref();
+    haptic('light');
+  }
+  function paintPush() {
+    const sw = document.getElementById('pushSwitch');
+    const knob = document.getElementById('pushKnob');
+    if (sw) sw.classList.toggle('bg-accent', pushOn);
+    if (sw) sw.classList.toggle('bg-surface2', !pushOn);
+    if (knob) knob.style.transform = pushOn ? 'translateX(20px)' : 'translateX(0)';
+  }
+  function togglePush() {
+    pushOn = !pushOn;
+    try { localStorage.setItem('vireo.push', pushOn ? 'on' : 'off'); } catch (e) {}
+    paintPush();
     haptic('light');
   }
 
@@ -1439,6 +1454,7 @@
   }
   applyTheme(isLight() ? 'light' : 'dark');
   paintAdsPref();
+  paintPush();
   paintPills('mkRange', String(MK.days));
   paintPills('stRange', ST.range);
   window.addEventListener('resize', sizeCandle);
